@@ -1,4 +1,7 @@
 <template>
+  <div>
+    首页
+  </div>
   <view class="content">
     <image class="logo" src="/static/logo.png" />
     <view class="text-area">
@@ -7,7 +10,7 @@
   </view>
 </template>
 
-<script setup lang="ts">
+<script setup >
 import { ref } from 'vue'
 const title = ref('Hello')
 </script>
