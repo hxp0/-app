@@ -1,42 +1,14 @@
-<template>
-  <view class="content">
-    <image class="logo" src="/static/logo.png" />
-    <view class="text-area">
-      <text class="title">{{ title }}</text>
-    </view>
-  </view>
-  123456789
-</template>
-
 <script setup lang="ts">
-import { ref } from 'vue'
-const title = ref('Hello')
+
+
 </script>
 
-<style>
-.content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
+<template>
+<h1>首页</h1>
 
-.logo {
-  height: 200rpx;
-  width: 200rpx;
-  margin-top: 200rpx;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 50rpx;
-}
+</template>
 
-.text-area {
-  display: flex;
-  justify-content: center;
-}
+<style lang="scss" scoped>
 
-.title {
-  font-size: 36rpx;
-  color: #8f8f94;
-}
+
 </style>
