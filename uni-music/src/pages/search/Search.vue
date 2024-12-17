@@ -1,0 +1,51 @@
+<script setup lang="ts">
+import { searchDefaultApi,searchSuggestApi } from '../../services'
+import type{SearchSuggestItem} from '../../services'
+import { ref } from 'vue'
+import DefaultList from './compoents/DefaultList.vue'
+import ResultList from './compoents/ResultList.vue'
+import Suggest from './compoents/Suggest.vue'
+enum SearchType{
+	Default = 'DEFAULT',
+	Result ='RESULT',
+	Suggest = 'SUGGEST'
+}
+const type = ref(SearchType.Default)
+const search = (e:{value:string}) =>{
+	type.value = SearchType.Result
+}
+let timer:number
+const suggestList = ref<SearchSuggestItem[]>([])
+const input = (val:string) => {
+	if(val.length !== 0 ){
+        if(timer) clearTimeout(timer)
+        timer = setTimeout(()=>{
+            type.value = SearchType.Suggest
+            searchSuggestApi(val)
+            .then(res=>{
+                suggestList.value = res.result.allMatch
+            })
+        },500)
+    }else{
+        type.value = SearchType.Default
+    }
+}
+const keyword = ref('')
+searchDefaultApi()
+.then(res=>{
+    keyword.value = res.data.realkeyword
+})
+</script>
+
+<template>
+<uni-search-bar :placeholder="keyword" bgColor="#EEEEEE" @confirm="search" radius="20" @input="input"/>
+<DefaultList v-if="type === SearchType.Default"/>
+<ResultList v-else-if="type === SearchType.Result"/>
+<Suggest v-else-if="type === SearchType.Suggest" :list="suggestList"/>
+
+</template>
+
+<style lang="scss" scoped>
+
+
+</style>
