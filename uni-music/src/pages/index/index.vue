@@ -5,7 +5,6 @@
       <text class="title">{{ title }}</text>
     </view>
   </view>
-  123456789
 </template>
 
 <script setup lang="ts">
