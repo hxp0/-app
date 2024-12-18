@@ -35,6 +35,20 @@
 			"style": {
 				"navigationBarTitleText": "歌单"
 			}
+		},
+		{
+			"path": "pages/search/Search",
+			"style": {
+				"navigationBarTitleText": "搜索"
+			}
+			
+		},
+		{
+			"path": "pages/login/Login",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
+			
 		}
 	],
 	"easycom": {
@@ -82,5 +96,11 @@
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
+	},
+	"easycom": {
+		"autoscan": true,
+		"custom": {
+			"^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
+		}
 	}
 }
