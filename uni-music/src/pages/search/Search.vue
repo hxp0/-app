@@ -11,9 +11,6 @@ enum SearchType{
 	Suggest = 'SUGGEST'
 }
 const type = ref(SearchType.Default)
-const search = (e:{value:string}) =>{
-	type.value = SearchType.Result
-}
 const hotList = ref<SearchHotItem[]>([])
 const value = ref('')
 searchHotApi()
@@ -21,7 +18,7 @@ searchHotApi()
     hotList.value = res.data
 })
 const historyList = ref<string[]>([])
-let timer:number
+let timer:any
 const suggestList = ref<SearchSuggestItem[]>([])
 const input = (val:string) => {
 	if(val.length !== 0 ){
@@ -37,10 +34,22 @@ const input = (val:string) => {
         type.value = SearchType.Default
     }
 }
-        if(timer) clearTimeout(timer)
-        type.value = SearchType.Default
-    }
+const del = ()=>{
+    historyList.value = []
 }
+const changeValue = (val:string)=>{
+    value.value = val
+    searchApi(val)
+    .then(res=>{
+        if(timer) clearTimeout(timer)
+        type.value = SearchType.Result
+        resultList.value = res.result.songs
+        historyList.value.push(val)
+    })
+    if(timer) clearTimeout(timer)
+        type.value = SearchType.Default
+}
+        
 const resultList = ref<SearchResultItem[]>([])
 const search = (e:{value:string}) =>{
 	type.value = SearchType.Result
@@ -60,24 +69,6 @@ searchDefaultApi()
 })
 </script>
 
-<template>
-<uni-search-bar :placeholder="keyword" bgColor="#EEEEEE" @confirm="search" radius="20" @input="input"/>
-<DefaultList v-if="type === SearchType.Default"/>
-<ResultList v-else-if="type === SearchType.Result"/>
-<Suggest v-else-if="type === SearchType.Suggest" :list="suggestList"/>
-const del = ()=>{
-    historyList.value = []
-}
-const changeValue = (val:string)=>{
-    value.value = val
-    searchApi(val)
-    .then(res=>{
-        if(timer) clearTimeout(timer)
-        type.value = SearchType.Result
-        resultList.value = res.result.songs
-        historyList.value.push(val)
-    })
-}
 </script>
 
 <template>
