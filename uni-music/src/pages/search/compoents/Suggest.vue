@@ -4,12 +4,20 @@ interface Props {
     list:SearchSuggestItem[]
 }
 const props = defineProps<Props>()
+<<<<<<< HEAD
+
+=======
 const emits = defineEmits(['changeValue'])
+>>>>>>> 2c8cfb47db4f7c13bf233ce79bdb746f5c32fb92
 </script>
 
 <template>
 <view class="suggest">
+<<<<<<< HEAD
+    <view v-for="item in props.list" :key="item.keyword" class="item">
+=======
     <view v-for="item in props.list" :key="item.keyword" class="item" @click="emits('changeValue',item.keyword)">
+>>>>>>> 2c8cfb47db4f7c13bf233ce79bdb746f5c32fb92
         <uni-icons type="search" size="20" color="#eee" class="search"></uni-icons>
         {{ item.keyword }}
     </view>
@@ -20,7 +28,10 @@ const emits = defineEmits(['changeValue'])
 <style lang="scss" scoped>
 .suggest{
     width: 100%;
+<<<<<<< HEAD
+=======
     font-family: '楷体';
+>>>>>>> 2c8cfb47db4f7c13bf233ce79bdb746f5c32fb92
     .item{
         width: 100%;
         height: 40px;

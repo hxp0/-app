@@ -11,6 +11,9 @@ enum SearchType{
 	Suggest = 'SUGGEST'
 }
 const type = ref(SearchType.Default)
+const search = (e:{value:string}) =>{
+	type.value = SearchType.Result
+}
 const hotList = ref<SearchHotItem[]>([])
 const value = ref('')
 searchHotApi()
@@ -31,6 +34,9 @@ const input = (val:string) => {
             })
         },500)
     }else{
+        type.value = SearchType.Default
+    }
+}
         if(timer) clearTimeout(timer)
         type.value = SearchType.Default
     }
@@ -52,6 +58,13 @@ searchDefaultApi()
 .then(res=>{
     keyword.value = res.data.realkeyword
 })
+</script>
+
+<template>
+<uni-search-bar :placeholder="keyword" bgColor="#EEEEEE" @confirm="search" radius="20" @input="input"/>
+<DefaultList v-if="type === SearchType.Default"/>
+<ResultList v-else-if="type === SearchType.Result"/>
+<Suggest v-else-if="type === SearchType.Suggest" :list="suggestList"/>
 const del = ()=>{
     historyList.value = []
 }

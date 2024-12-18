@@ -3,6 +3,10 @@ interface RequestParams {
     url: string
     data?: object
   }
+<<<<<<< HEAD
+=======
+  
+>>>>>>> 0f41b78836df46421f4c04516e199a7f961d5ea7
 export interface RequestList {
     targetId:number
     pic:string
@@ -11,6 +15,72 @@ export interface RequestList {
 export interface RequestRes {
     code:number
     data:RequestList[]
+<<<<<<< HEAD
+=======
+}
+
+
+
+export enum ShowType {
+    HOMEPAGE_SLIDE_PLAYLIST = 'HOMEPAGE_SLIDE_PLAYLIST',
+    HOMEPAGE_SLIDE_SONGLIST_ALIGN = 'HOMEPAGE_SLIDE_SONGLIST_ALIGN'
+}
+export interface Block {
+    blockCode:string
+    showType:string
+    creatives:{
+        creativeType:string
+        resources:{
+            resourceId:string
+            uiElement:{
+                image:{
+                    imageUrl:string
+                }
+                mainTitle:{
+                    title:string
+                }
+            }
+        }
+    }
+    uiElement:{
+        subTitle:{
+            title:string
+        }
+    }
+}
+export interface RequestHome {
+    code:number
+    data:{
+        blocks:Block[]
+    }
+}
+
+
+
+
+export const getBannerApi = () => {
+    return request<RequestRes>({url:'https://zyxcl.xyz/music/api/dj/banner'})
+}
+export const getHomeApi = () => {
+    return request<RequestHome>({url:'https://zyxcl.xyz/music/api/homepage/block/page'})
+}
+
+export const getDetailApi = (id:number) => {
+  return request({url:`https://zyxcl.xyz/music/api/playlist/detail`,data:{id}})
+}
+  // 封装请求接口的函数，统一管理接口
+export const request = <T>({ url, data }: RequestParams) => {
+  return new Promise<T>((resolve, reject) => {
+    uni.request({
+      url,
+      data,
+      success: (res) => {
+        resolve(res.data as T)
+      },
+      fail: reject,
+    })
+  })
+>>>>>>> 0f41b78836df46421f4c04516e199a7f961d5ea7
 }
 
 
@@ -149,9 +219,60 @@ export interface SearchDefaultRes {
         realkeyword: string
     }
   }
+<<<<<<< HEAD
   export const searchDefaultApi = () => {
     return request<SearchDefaultRes>({url: 'https://zyxcl.xyz/music/api/search/default' })
   }
+=======
+ 
+  
+  export interface SongUrlItem {
+    id: number
+    url: string
+  }
+  export interface SongUrlList {
+    code: number
+    data:SongUrlItem[]
+  }
+  export const playerUrlApi = (id:string) => {
+    return request<SongUrlList>({url: 'https://zyxcl.xyz/music/api/song/url' , 
+      data:{
+        id
+      }
+    })
+  }
+
+  export interface SongDetailItem {
+    id: number
+    al:{
+      name:string
+      picUrl: string
+    }
+    ar:{
+      name:string
+    }
+  }
+  export interface SongDetailList {
+    code: number
+    songs:SongDetailItem[]
+  }
+  export const playerDetailApi = (ids:string) => {
+    return request<SongDetailList>({url: 'https://zyxcl.xyz/music/api/song/detail' , 
+      data:{
+        ids
+      }
+    })
+  }
+// 默认搜索关键词接口
+export const searchDefaultApi = () => {
+  return request<SearchDefaultRes>({url: 'https://zyxcl.xyz/music/api/search/default' })
+}
+interface captchaType {
+  code:number
+  data:boolean
+}
+// 获取验证码接口
+>>>>>>> 0f41b78836df46421f4c04516e199a7f961d5ea7
 export const CaptchaApi = (phone:number) => {
   return request({url: 'https://zyxcl.xyz/music/api/captcha/sent',
     data: {

@@ -1,4 +1,12 @@
 <script setup lang="ts">
+<<<<<<< HEAD
+
+
+</script>
+
+<template>
+默认列表
+=======
 import  type { SearchHotItem } from '../../../services'
 interface Props {
     list:SearchHotItem[]
@@ -38,10 +46,14 @@ const del = ()=>{
         {{ item.searchWord }}
     </view>
 </view>
+>>>>>>> 2c8cfb47db4f7c13bf233ce79bdb746f5c32fb92
 
 </template>
 
 <style lang="scss" scoped>
+<<<<<<< HEAD
+
+=======
 .history{
     width: 100%;
     margin:10px 0 ;
@@ -94,5 +106,6 @@ const del = ()=>{
         padding: 0 10px;
     }
 }
+>>>>>>> 2c8cfb47db4f7c13bf233ce79bdb746f5c32fb92
 
 </style>
