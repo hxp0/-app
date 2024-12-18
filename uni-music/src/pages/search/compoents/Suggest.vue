@@ -4,12 +4,12 @@ interface Props {
     list:SearchSuggestItem[]
 }
 const props = defineProps<Props>()
-
+const emits = defineEmits(['changeValue'])
 </script>
 
 <template>
 <view class="suggest">
-    <view v-for="item in props.list" :key="item.keyword" class="item">
+    <view v-for="item in props.list" :key="item.keyword" class="item" @click="emits('changeValue',item.keyword)">
         <uni-icons type="search" size="20" color="#eee" class="search"></uni-icons>
         {{ item.keyword }}
     </view>
@@ -20,6 +20,7 @@ const props = defineProps<Props>()
 <style lang="scss" scoped>
 .suggest{
     width: 100%;
+    font-family: '楷体';
     .item{
         width: 100%;
         height: 40px;
