@@ -83,5 +83,12 @@ export interface SearchDefaultRes {
   export const searchDefaultApi = () => {
     return request<SearchDefaultRes>({url: 'https://zyxcl.xyz/music/api/search/default' })
   }
+export const CaptchaApi = (phone:number) => {
+  return request({url: 'https://zyxcl.xyz/music/api/captcha/sent',
+    data: {
+      phone
+    }
+   })
+}
   
   
