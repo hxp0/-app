@@ -7,7 +7,6 @@
             <uni-icons type="more-filled" size="20" color="#fff"></uni-icons>
         </view>
     </view>
-    <view class="top"></view>
     <view class="top">
         <image src="#"></image>
         <view class="login" @click="goLogin">立即登录</view>

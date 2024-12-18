@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import {CaptchaApi,CaptchaLoginApi,loginStatusApi,logoutApi} from '../../../services'
+import {CaptchaApi,CaptchaLoginApi} from '../../../services'
 const phone = ref<number>()
 const captcha = ref<string>('')
 let timer:any
@@ -71,15 +71,6 @@ const submit = async()=>{
   }
   
 }
-// 校验登录状态
-// loginStatusApi()
-// .then(res=>{
-//   console.log(res)
-// })
-// logoutApi()
-// .then(res=>{
-//   console.log(res)
-// })
 </script>
 
 <template>

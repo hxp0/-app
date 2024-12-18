@@ -18,7 +18,7 @@ searchHotApi()
     hotList.value = res.data
 })
 const historyList = ref<string[]>([])
-let timer:any
+let timer:number
 const suggestList = ref<SearchSuggestItem[]>([])
 const input = (val:string) => {
 	if(val.length !== 0 ){
@@ -27,29 +27,15 @@ const input = (val:string) => {
             type.value = SearchType.Suggest
             searchSuggestApi(val)
             .then(res=>{
-                suggestList.value = res.result.allMatch
+                console.log(res)
+                suggestList.value = res.result.allMatch?res.result.allMatch : []
             })
         },500)
     }else{
+        if(timer) clearTimeout(timer)
         type.value = SearchType.Default
     }
 }
-const del = ()=>{
-    historyList.value = []
-}
-const changeValue = (val:string)=>{
-    value.value = val
-    searchApi(val)
-    .then(res=>{
-        if(timer) clearTimeout(timer)
-        type.value = SearchType.Result
-        resultList.value = res.result.songs
-        historyList.value.push(val)
-    })
-    if(timer) clearTimeout(timer)
-        type.value = SearchType.Default
-}
-        
 const resultList = ref<SearchResultItem[]>([])
 const search = (e:{value:string}) =>{
 	type.value = SearchType.Result
@@ -67,8 +53,19 @@ searchDefaultApi()
 .then(res=>{
     keyword.value = res.data.realkeyword
 })
-</script>
-
+const del = ()=>{
+    historyList.value = []
+}
+const changeValue = (val:string)=>{
+    value.value = val
+    searchApi(val)
+    .then(res=>{
+        if(timer) clearTimeout(timer)
+        type.value = SearchType.Result
+        resultList.value = res.result.songs
+        historyList.value.push(val)
+    })
+}
 </script>
 
 <template>
