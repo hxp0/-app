@@ -1,5 +1,4 @@
 
-<<<<<<< HEAD
 export interface RequestParams {
     url:string,
     data?:object
@@ -54,20 +53,6 @@ export interface RequestHome {
 
 
 
-export const request = <T>({url,data}:RequestParams) => {
-    return new Promise<T>((resolve,reject) => {
-        uni.request({
-            url,
-            data,
-            success:(res) =>{
-                resolve(res.data as T)
-            },
-            fail:reject
-        })
-    })
-}
-
-
 
 export const getBannerApi = () => {
     return request<RequestRes>({url:'https://zyxcl.xyz/music/api/dj/banner'})
@@ -76,12 +61,19 @@ export const getHomeApi = () => {
     return request<RequestHome>({url:'https://zyxcl.xyz/music/api/homepage/block/page'})
 }
 
+export const getDetailApi = (id:number) => {
+  return request({url:`https://zyxcl.xyz/music/api/playlist/detail`,data:{id}})
+}
 
-=======
-interface RequestParams {
-    url: string
-    data?: object
-  }
+
+
+
+
+
+
+
+
+
   // 封装请求接口的函数，统一管理接口
   export const request = <T>({ url, data }: RequestParams) => {
     return new Promise<T>((resolve, reject) => {
@@ -164,4 +156,3 @@ export interface SearchDefaultRes {
   }
   
   
->>>>>>> 0c111a13ec06139eec3172101300da3ecbc8e49b
