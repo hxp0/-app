@@ -9,25 +9,31 @@
 		{
 			"path": "pages/find/find",
 			"style": {
-				"navigationBarTitleText": "推荐"
+				"navigationBarTitleText": "发现"
 			}
 		},
 		{
 			"path": "pages/player/player",
 			"style": {
-				"navigationBarTitleText": "推荐"
+				"navigationBarTitleText": "漫游"
 			}
 		},
 		{
 			"path": "pages/note/note",
 			"style": {
-				"navigationBarTitleText": "推荐"
+				"navigationBarTitleText": "笔记"
 			}
 		},
 		{
 			"path": "pages/mine/mine",
 			"style": {
-				"navigationBarTitleText": "推荐"
+				"navigationBarTitleText": "我的"
+			}
+		},
+		{
+			"path": "pages/playlist/playlist",
+			"style": {
+				"navigationBarTitleText": "歌单"
 			}
 		},
 		{
@@ -45,6 +51,12 @@
 			
 		}
 	],
+	"easycom": {
+			"autoscan": true,
+			"custom": {
+				"^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
+			}
+	},
 	"tabBar": {
     	"color": "#333333",
     	"selectedColor": "#FE1765",
