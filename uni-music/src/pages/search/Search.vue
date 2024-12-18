@@ -1,6 +1,11 @@
 <script setup lang="ts">
+<<<<<<< HEAD
 import { searchDefaultApi,searchSuggestApi } from '../../services'
 import type{SearchSuggestItem} from '../../services'
+=======
+import { searchDefaultApi,searchSuggestApi,searchApi,searchHotApi } from '../../services'
+import type{SearchSuggestItem,SearchResultItem,SearchHotItem} from '../../services'
+>>>>>>> 2c8cfb47db4f7c13bf233ce79bdb746f5c32fb92
 import { ref } from 'vue'
 import DefaultList from './compoents/DefaultList.vue'
 import ResultList from './compoents/ResultList.vue'
@@ -11,9 +16,19 @@ enum SearchType{
 	Suggest = 'SUGGEST'
 }
 const type = ref(SearchType.Default)
+<<<<<<< HEAD
 const search = (e:{value:string}) =>{
 	type.value = SearchType.Result
 }
+=======
+const hotList = ref<SearchHotItem[]>([])
+const value = ref('')
+searchHotApi()
+.then(res=>{
+    hotList.value = res.data
+})
+const historyList = ref<string[]>([])
+>>>>>>> 2c8cfb47db4f7c13bf233ce79bdb746f5c32fb92
 let timer:number
 const suggestList = ref<SearchSuggestItem[]>([])
 const input = (val:string) => {
@@ -27,14 +42,34 @@ const input = (val:string) => {
             })
         },500)
     }else{
+<<<<<<< HEAD
         type.value = SearchType.Default
     }
 }
+=======
+        if(timer) clearTimeout(timer)
+        type.value = SearchType.Default
+    }
+}
+const resultList = ref<SearchResultItem[]>([])
+const search = (e:{value:string}) =>{
+	type.value = SearchType.Result
+    searchApi(e.value)
+    .then(res=>{
+        resultList.value = res.result.songs
+        historyList.value.push(e.value)
+    })
+}
+const cancel = (e:{value:string}) =>{
+    type.value = SearchType.Default
+}
+>>>>>>> 2c8cfb47db4f7c13bf233ce79bdb746f5c32fb92
 const keyword = ref('')
 searchDefaultApi()
 .then(res=>{
     keyword.value = res.data.realkeyword
 })
+<<<<<<< HEAD
 </script>
 
 <template>
@@ -42,6 +77,28 @@ searchDefaultApi()
 <DefaultList v-if="type === SearchType.Default"/>
 <ResultList v-else-if="type === SearchType.Result"/>
 <Suggest v-else-if="type === SearchType.Suggest" :list="suggestList"/>
+=======
+const del = ()=>{
+    historyList.value = []
+}
+const changeValue = (val:string)=>{
+    value.value = val
+    searchApi(val)
+    .then(res=>{
+        if(timer) clearTimeout(timer)
+        type.value = SearchType.Result
+        resultList.value = res.result.songs
+        historyList.value.push(val)
+    })
+}
+</script>
+
+<template>
+<uni-search-bar :placeholder="keyword" bgColor="#EEEEEE" @confirm="search" radius="20" @input="input" cancelText="取消" @cancel="cancel" v-model="value"/>
+<DefaultList v-if="type === SearchType.Default" :list="hotList" :historyList="historyList"  @changeHistory="del" @changeValue="changeValue"/>
+<ResultList v-else-if="type === SearchType.Result" :list="resultList"/>
+<Suggest v-else-if="type === SearchType.Suggest" :list="suggestList" @changeValue="changeValue"/>
+>>>>>>> 2c8cfb47db4f7c13bf233ce79bdb746f5c32fb92
 
 </template>
 

@@ -1,0 +1,114 @@
+{
+  "id": "4781270",
+  "name": "网易云音乐",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "4095983",
+      "name": "心动",
+      "font_class": "xindong",
+      "unicode": "e721",
+      "unicode_decimal": 59169
+    },
+    {
+      "icon_id": "5709056",
+      "name": "icon_dress up",
+      "font_class": "icon-",
+      "unicode": "e722",
+      "unicode_decimal": 59170
+    },
+    {
+      "icon_id": "6234420",
+      "name": "最近浏览",
+      "font_class": "zuijinliulan",
+      "unicode": "e62f",
+      "unicode_decimal": 58927
+    },
+    {
+      "icon_id": "7256990",
+      "name": "更多",
+      "font_class": "gengduo",
+      "unicode": "e65b",
+      "unicode_decimal": 58971
+    },
+    {
+      "icon_id": "11833498",
+      "name": "导入",
+      "font_class": "daoru",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    },
+    {
+      "icon_id": "14145144",
+      "name": "右",
+      "font_class": "you",
+      "unicode": "e745",
+      "unicode_decimal": 59205
+    },
+    {
+      "icon_id": "20784206",
+      "name": "下载本地",
+      "font_class": "xiazaibendi",
+      "unicode": "e6bc",
+      "unicode_decimal": 59068
+    },
+    {
+      "icon_id": "29441232",
+      "name": "网易云音乐",
+      "font_class": "wangyiyunyinle",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "39573833",
+      "name": "网盘-copy",
+      "font_class": "wangpan1",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "2076214",
+      "name": "暂停",
+      "font_class": "zanting",
+      "unicode": "e87a",
+      "unicode_decimal": 59514
+    },
+    {
+      "icon_id": "2674483",
+      "name": "暂停",
+      "font_class": "zanting1",
+      "unicode": "e629",
+      "unicode_decimal": 58921
+    },
+    {
+      "icon_id": "7939947",
+      "name": "播放",
+      "font_class": "arrow-",
+      "unicode": "e625",
+      "unicode_decimal": 58917
+    },
+    {
+      "icon_id": "11536338",
+      "name": "我的",
+      "font_class": "wode",
+      "unicode": "e797",
+      "unicode_decimal": 59287
+    },
+    {
+      "icon_id": "28356353",
+      "name": "wangyiyun",
+      "font_class": "wangyiyun",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "2674474",
+      "name": "播放",
+      "font_class": "bofang",
+      "unicode": "e624",
+      "unicode_decimal": 58916
+    }
+  ]
+}
