@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
     <view class="player" ref="player" :style="'background:url(' + bgUrl + ') no-repeat center/1000% 1000%'"> 
         <view class="position">
             <view class="header">
@@ -194,15 +193,4 @@ uni-page-body{
         transform: rotate(360deg);
     }  
 }
-=======
-    
-</template>
-
-<script setup lang="ts">
-
-</script>
-
-<style lang="scss" scoped>
-
->>>>>>> 2c8cfb47db4f7c13bf233ce79bdb746f5c32fb92
 </style>

@@ -1,6 +1,4 @@
 <script setup lang="ts">
-<<<<<<< HEAD
-=======
 import { ref } from 'vue'
 import { getBannerApi,getHomeApi,ShowType } from '../../services'
 import type { RequestList,Block } from '../../services'
@@ -32,20 +30,11 @@ getHomeApi()
 
 
 
->>>>>>> 2c8cfb47db4f7c13bf233ce79bdb746f5c32fb92
 
 
 </script>
 
 <template>
-<<<<<<< HEAD
-<h1>首页</h1>
-
-</template>
-
-<style lang="scss" scoped>
-
-=======
     <view>
         <view class="nav">
             <i class="iconfont icon-liebiao" @click="showDrawer"></i>
@@ -125,6 +114,5 @@ getHomeApi()
         margin: 0 5px;
     }
 }
->>>>>>> 2c8cfb47db4f7c13bf233ce79bdb746f5c32fb92
 
 </style>

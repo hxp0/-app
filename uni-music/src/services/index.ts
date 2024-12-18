@@ -3,9 +3,7 @@ interface RequestParams {
     url: string
     data?: object
   }
-<<<<<<< HEAD
   
-=======
 export interface RequestList {
     targetId:number
     pic:string
@@ -75,7 +73,6 @@ export const getDetailApi = (id:number) => {
 
 
 
->>>>>>> 2c8cfb47db4f7c13bf233ce79bdb746f5c32fb92
   // 封装请求接口的函数，统一管理接口
   export const request = <T>({ url, data }: RequestParams) => {
     return new Promise<T>((resolve, reject) => {
@@ -156,7 +153,6 @@ export interface SearchDefaultRes {
   export const searchDefaultApi = () => {
     return request<SearchDefaultRes>({url: 'https://zyxcl.xyz/music/api/search/default' })
   }
-<<<<<<< HEAD
   
   export interface SongUrlItem {
     id: number
@@ -195,7 +191,6 @@ export interface SearchDefaultRes {
       }
     })
   }
-=======
 export const CaptchaApi = (phone:number) => {
   return request({url: 'https://zyxcl.xyz/music/api/captcha/sent',
     data: {
@@ -217,4 +212,3 @@ export const CaptchaApi = (phone:number) => {
 
 
 
->>>>>>> 2c8cfb47db4f7c13bf233ce79bdb746f5c32fb92
