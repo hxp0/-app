@@ -13,21 +13,24 @@
 			}
 		},
 		{
-			"path": "pages/player/player",
-			"style": {
-				"navigationBarTitleText": "推荐"
-			}
+			"path": "pages/player/player"
 		},
 		{
 			"path": "pages/note/note",
 			"style": {
-				"navigationBarTitleText": "推荐"
+				"navigationBarTitleText": "笔记"
 			}
 		},
 		{
 			"path": "pages/mine/mine",
 			"style": {
-				"navigationBarTitleText": "推荐"
+				"navigationBarTitleText": "我的"
+			}
+		},
+		{
+			"path": "pages/playlist/playlist",
+			"style": {
+				"navigationBarTitleText": "歌单"
 			}
 		},
 		{
@@ -62,8 +65,8 @@
     	},
 		{
     		"pagePath": "pages/player/player",
-    		"iconPath": "static/img/index.png",
-    		"selectedIconPath": "static/img/index_1.png",
+    		"iconPath": "static/img/player.png",
+    		"selectedIconPath": "static/img/player_1.png",
     		"text": "漫游"
     	},
 		{

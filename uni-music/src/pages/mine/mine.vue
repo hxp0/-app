@@ -7,6 +7,7 @@
             <uni-icons type="more-filled" size="20" color="#fff"></uni-icons>
         </view>
     </view>
+    <view class="top"></view>
     <view class="top">
         <image src="#"></image>
         <view class="login" @click="goLogin">立即登录</view>
@@ -69,6 +70,8 @@ const activeCur = ref(0)
 .content{
     width: 100%;
     height: 100%;
+    background-color: #f5f5f5;
+    position: relative;
     background-color: #4e1414;
     position: relative;
     display: flex;
