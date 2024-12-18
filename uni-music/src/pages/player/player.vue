@@ -38,7 +38,7 @@ let audio:any = null
 const getSongDetail = async() => {
     try{
         let res = await playerDetailApi('2146688401')
-        console.log('Detail',res.songs)
+        // console.log('Detail',res.songs)
         bgUrl.value = res.songs[0].al.picUrl
     }catch(e){
         console.log(e)
@@ -49,9 +49,9 @@ getSongDetail()
 const getSongUrl = async() => {
     try{
         let res = await playerUrlApi('2146688401')
-        console.log('url',res.data)
+        // console.log('url',res.data)
         songUrl.value = res.data[0].url
-        console.log(songUrl.value)
+        // console.log(songUrl.value)
     }catch(e){
         console.log(e)
     }
@@ -61,8 +61,7 @@ getSongUrl()
 const changeState = () => {
     isplay.value = !isplay.value;
     isPaused.value = !isPaused.value;
-    console.log(isPaused.value)
-    // if( isAudio.value ) return
+    // console.log(isPaused.value)
     if( !audio ) {
         audio = uni.createInnerAudioContext();
         audio.src = songUrl.value;
@@ -72,14 +71,13 @@ const changeState = () => {
     }else{
         audio.pause()
     }
+    audio.onEnded(()=>{
+        isplay.value = !isplay.value;
+        isPaused.value = !isPaused.value;
+    })
 }
 
-// watch(()=>isplay , ()=>{
-//     if( isplay ){
-//         const pic = document.querySelector(".songPic")
-//         // pic.
-//     }
-// })
+
 </script>
 
 <style lang="scss" scoped>
@@ -114,7 +112,7 @@ uni-page-body{
         .playImg{
             position:absolute;
             bottom:0;
-            left:67.5px;
+            left:66px;
             // transform: translateX(-50%);
             animation: name 15s infinite linear;
             z-index:5;
