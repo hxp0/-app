@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import {CaptchaApi} from '../../../services'
 const phone = ref<number>()
 const captcha = ref<string>('')
+let timer
 const getCaptcha = async()=>{
   if(phone.value){
     if(phone.value.toString().length !== 11){
