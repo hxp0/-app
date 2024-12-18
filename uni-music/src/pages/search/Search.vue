@@ -27,7 +27,8 @@ const input = (val:string) => {
             type.value = SearchType.Suggest
             searchSuggestApi(val)
             .then(res=>{
-                suggestList.value = res.result.allMatch
+                console.log(res)
+                suggestList.value = res.result.allMatch?res.result.allMatch : []
             })
         },500)
     }else{
