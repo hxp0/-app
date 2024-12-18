@@ -1,12 +1,4 @@
 <script setup lang="ts">
-<<<<<<< HEAD
-
-
-</script>
-
-<template>
-搜索结果列表
-=======
 import  type { SearchResultItem } from '../../../services'
 import { ref } from 'vue'
 interface Props {
@@ -34,14 +26,10 @@ const changeActive = (index:number)=>{
             </view>
         </view>
     </view>
->>>>>>> 2c8cfb47db4f7c13bf233ce79bdb746f5c32fb92
 
 </template>
 
 <style lang="scss" scoped>
-<<<<<<< HEAD
-
-=======
 .tabs{
     width: 100%;
     height: 40px;
@@ -88,6 +76,5 @@ const changeActive = (index:number)=>{
         padding: 0 10px;
     }
 }
->>>>>>> 2c8cfb47db4f7c13bf233ce79bdb746f5c32fb92
 
 </style>

@@ -1,25 +1,76 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import {CaptchaApi} from '../../../services'
+import {CaptchaApi,CaptchaLoginApi} from '../../../services'
 const phone = ref<number>()
 const captcha = ref<string>('')
-let timer
+let timer:any
+const captchaVal = ref<string | number>('获取验证码')
+const countTime = ref<number>(10)
+const isTimer = ref(false)
+// 获取验证码
 const getCaptcha = async()=>{
   if(phone.value){
     if(phone.value.toString().length !== 11){
       return uni.showToast({
         title: '手机号格式错误',
-        icon: 'none'
+        icon: 'error'
       })
     }
+    timer = setInterval(()=>{
+      countTime.value--
+      captchaVal.value = countTime.value
+      isTimer.value = true
+      if(countTime.value === 0 ){
+        clearInterval(timer)
+        countTime.value = 10
+        captchaVal.value = '获取验证码'
+        isTimer.value = false
+        return
+      }
+    },1000)
     const res = await CaptchaApi(phone.value)
-    console.log(res)
+    if(res.code === 200){
+      uni.showToast({
+        title:'获取验证码成功',
+        icon:'success'
+      })
+    }else{
+      uni.showToast({
+        title:'获取验证码失败',
+        icon:'none'
+      })
+    }
+  }else{
+    uni.showToast({
+      title:'请输入手机号',
+      icon:'none'
+    })
   }
 }
-const submit = ()=>{
-  console.log('submit')
+const submit = async()=>{
+  if(phone.value && captcha.value){
+    const res = await CaptchaLoginApi(phone.value,captcha.value)
+    console.log(res)
+    if(res.code === 200 ){
+      uni.showToast({
+        title:'登录成功',
+        icon:'error'
+      })
+      
+    }else{
+      uni.showToast({
+        title:res.message,
+        icon:'error'
+      })
+    }
+  }else{
+    uni.showToast({
+      title:'请输入手机号或者验证码',
+      icon:'error'
+    })
+  }
+  
 }
-
 </script>
 
 <template>
@@ -29,7 +80,7 @@ const submit = ()=>{
     </view>
     <view class="row captcha">
       <input type="text" placeholder="请输入验证码" v-model="captcha">
-      <button type="primary" @click="getCaptcha" >获取验证码</button>
+      <button type="primary" @click="getCaptcha" :disabled="isTimer">{{captchaVal}}</button>
     </view>
     <view class="row">
         <button type="primary" @click="submit">登录</button>
@@ -59,6 +110,7 @@ const submit = ()=>{
     color: #ffffff;
     border: none;
     border-radius: 10rpx;
+    font-size: 14px;
   }
 }
 .captcha {
