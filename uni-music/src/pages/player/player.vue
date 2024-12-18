@@ -106,7 +106,7 @@ uni-page-body{
         align-items: center;
     }
     .play{
-        padding:75px 0 0 0;
+        padding-top:75px;
         height:240px;
         position:relative;
         .playImg{
