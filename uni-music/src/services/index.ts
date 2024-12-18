@@ -3,6 +3,7 @@ interface RequestParams {
     url: string
     data?: object
   }
+  
   // 封装请求接口的函数，统一管理接口
   export const request = <T>({ url, data }: RequestParams) => {
     return new Promise<T>((resolve, reject) => {
@@ -84,4 +85,40 @@ export interface SearchDefaultRes {
     return request<SearchDefaultRes>({url: 'https://zyxcl.xyz/music/api/search/default' })
   }
   
-  
+  export interface SongUrlItem {
+    id: number
+    url: string
+  }
+  export interface SongUrlList {
+    code: number
+    data:SongUrlItem[]
+  }
+  export const playerUrlApi = (id:string) => {
+    return request<SongUrlList>({url: 'https://zyxcl.xyz/music/api/song/url' , 
+      data:{
+        id
+      }
+    })
+  }
+
+  export interface SongDetailItem {
+    id: number
+    al:{
+      name:string
+      picUrl: string
+    }
+    ar:{
+      name:string
+    }
+  }
+  export interface SongDetailList {
+    code: number
+    songs:SongDetailItem[]
+  }
+  export const playerDetailApi = (ids:string) => {
+    return request<SongDetailList>({url: 'https://zyxcl.xyz/music/api/song/detail' , 
+      data:{
+        ids
+      }
+    })
+  }

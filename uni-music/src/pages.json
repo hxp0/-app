@@ -13,10 +13,7 @@
 			}
 		},
 		{
-			"path": "pages/player/player",
-			"style": {
-				"navigationBarTitleText": "推荐"
-			}
+			"path": "pages/player/player"
 		},
 		{
 			"path": "pages/note/note",
@@ -62,8 +59,8 @@
     	},
 		{
     		"pagePath": "pages/player/player",
-    		"iconPath": "static/img/index.png",
-    		"selectedIconPath": "static/img/index_1.png",
+    		"iconPath": "static/img/player.png",
+    		"selectedIconPath": "static/img/player_1.png",
     		"text": "漫游"
     	},
 		{
