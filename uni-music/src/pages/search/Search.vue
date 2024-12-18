@@ -24,22 +24,22 @@ const historyList = ref<string[]>([])
 let timer:number
 const suggestList = ref<SearchSuggestItem[]>([])
 const input = (val:string) => {
-	if(val.length !== 0 ){
-        if(timer) clearTimeout(timer)
-        timer = setTimeout(()=>{
-            type.value = SearchType.Suggest
-            searchSuggestApi(val)
-            .then(res=>{
-                suggestList.value = res.result.allMatch
-            })
-        },500)
-    }else{
-        type.value = SearchType.Default
-    }
-}
-        if(timer) clearTimeout(timer)
-        type.value = SearchType.Default
-    }
+// 	if(val.length !== 0 ){
+//         if(timer) clearTimeout(timer)
+//         timer = setTimeout(()=>{
+//             type.value = SearchType.Suggest
+//             searchSuggestApi(val)
+//             .then(res=>{
+//                 suggestList.value = res.result.allMatch
+//             })
+//         },500)
+//     }else{
+//         type.value = SearchType.Default
+//     }
+// }
+//         if(timer) clearTimeout(timer)
+//         type.value = SearchType.Default
+//     }
 }
 const resultList = ref<SearchResultItem[]>([])
 const search = (e:{value:string}) =>{
