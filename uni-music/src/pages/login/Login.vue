@@ -1,7 +1,4 @@
 <script setup lang="ts">
-<<<<<<< HEAD
-
-=======
 import Email from './components/Email.vue'
 import Qr from './components/Qr.vue'
 import Phone from './components/Phone.vue'
@@ -13,19 +10,10 @@ const typeArr = [
   { text: '邮箱登录', type: 'email' },
   { text: '二维码登录', type: 'qr' }
 ]
->>>>>>> 2c8cfb47db4f7c13bf233ce79bdb746f5c32fb92
 
 </script>
 
 <template>
-<<<<<<< HEAD
-
-<h1>登录页</h1>
-</template>
-
-<style lang="scss" scoped>
-
-=======
     <view class="login">
         <Phone v-if="loginType === 'phone'" />
         <Email v-else-if="loginType === 'email'" />
@@ -56,6 +44,5 @@ const typeArr = [
     margin: 0 10px;
   }
 }
->>>>>>> 2c8cfb47db4f7c13bf233ce79bdb746f5c32fb92
 
 </style>

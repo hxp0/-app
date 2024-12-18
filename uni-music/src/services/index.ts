@@ -63,16 +63,6 @@ export const getHomeApi = () => {
 export const getDetailApi = (id:number) => {
   return request({url:`https://zyxcl.xyz/music/api/playlist/detail`,data:{id}})
 }
-
-
-
-
-
-
-
-
-
-
   // 封装请求接口的函数，统一管理接口
 export const request = <T>({ url, data }: RequestParams) => {
   return new Promise<T>((resolve, reject) => {
@@ -152,10 +142,7 @@ export interface SearchDefaultRes {
         realkeyword: string
     }
   }
-<<<<<<< HEAD
-  export const searchDefaultApi = () => {
-    return request<SearchDefaultRes>({url: 'https://zyxcl.xyz/music/api/search/default' })
-  }
+ 
   
   export interface SongUrlItem {
     id: number
@@ -194,7 +181,6 @@ export interface SearchDefaultRes {
       }
     })
   }
-=======
 // 默认搜索关键词接口
 export const searchDefaultApi = () => {
   return request<SearchDefaultRes>({url: 'https://zyxcl.xyz/music/api/search/default' })
@@ -204,7 +190,6 @@ interface captchaType {
   data:boolean
 }
 // 获取验证码接口
->>>>>>> hxp
 export const CaptchaApi = (phone:number) => {
   return request<captchaType>({url: 'https://zyxcl.xyz/music/api/captcha/sent',
     data: {
@@ -212,10 +197,6 @@ export const CaptchaApi = (phone:number) => {
     }
    })
 }
-<<<<<<< HEAD
-
-
-=======
 interface captchaLoginType {
   code:number
   message:string
@@ -238,7 +219,6 @@ export const loginStatusApi = () => {
 export const logoutApi = () => {
   return request({url: 'https://zyxcl.xyz/music/api/logout'})
 }
->>>>>>> hxp
 
   
 
