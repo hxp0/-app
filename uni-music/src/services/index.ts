@@ -184,12 +184,13 @@ export interface SearchDefaultRes {
 export interface SongUrlItem {
   id: number
   url: string
+  time: number
 }
 export interface SongUrlList {
   code: number
   data:SongUrlItem[]
 }
-export const playerUrlApi = (id:string) => {
+export const playerUrlApi = (id:string | string[]) => {
   return request<SongUrlList>({url: 'https://zyxcl.xyz/music/api/song/url' , 
     data:{
       id
@@ -212,7 +213,7 @@ export interface SongDetailList {
   code: number
   songs:SongDetailItem[]
 }
-export const playerDetailApi = (ids:string) => {
+export const playerDetailApi = (ids:string | string[]) => {
   return request<SongDetailList>({url: 'https://zyxcl.xyz/music/api/song/detail' , 
     data:{
       ids
