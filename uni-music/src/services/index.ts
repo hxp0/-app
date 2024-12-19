@@ -206,9 +206,10 @@ export interface SongDetailItem {
     name:string
     picUrl: string
   }
+  alia: string[]
   ar:{
     name:string
-  }
+  }[]
 }
 export interface SongDetailList {
   code: number

@@ -21,6 +21,22 @@
                 </view>
                 <view :class="{songPlay: isplay , songPause: !isplay}"></view>
             </view>
+            <view class="songInfo">
+                <view class="infoLeft">
+                    <view class="songName">{{ songName }}</view>
+                    <view class="songArtists">{{ artists }}</view>
+                </view>
+                <view class="infoRight">
+                    <uni-badge size="small" :text="100" absolute="rightTop" type="default">
+                    	<view class="infoRight_L  iconfont icon-aixin"></view>
+                    </uni-badge>
+                    <!-- <view class="infoRight_L  iconfont icon-aixin">L</view> -->
+                    <view class="infoRight_R">R</view>
+                </view>
+                <view class="progress">
+                    <vivw class="roundDot"></vivw>
+                </view>
+            </view>
         </view>
     </view>
 </template>
@@ -32,14 +48,18 @@ import { playerUrlApi , playerDetailApi } from '../../services/index'
 const bgUrl = ref<string>()
 const songUrl = ref<string>()
 const isplay = ref(false)
-const isPaused = ref(false)
+const isPaused = ref(false) // 是否暂停
+const songName = ref<string>() // 歌曲名
+const artists = ref<string>() // 演唱者
 let audio:any = null
 
 const getSongDetail = async() => {
     try{
         let res = await playerDetailApi('2146688401')
-        // console.log('Detail',res.songs)
-        bgUrl.value = res.songs[0].al.picUrl
+        console.log('Detail',res.songs)
+        bgUrl.value = res.songs[0].al.picUrl;
+        songName.value = res.songs[0].al.name + '(' + res.songs[0].alia.map(v => v) + ')'
+        artists.value = res.songs[0].ar.map(v => v.name).join("/")
     }catch(e){
         console.log(e)
     }
@@ -49,7 +69,7 @@ getSongDetail()
 const getSongUrl = async() => {
     try{
         let res = await playerUrlApi('2146688401')
-        // console.log('url',res.data)
+        console.log('url',res.data)
         songUrl.value = res.data[0].url
         // console.log(songUrl.value)
     }catch(e){
@@ -183,6 +203,41 @@ uni-page-body{
             height:100%;
             z-index:30;
         }
+    }
+    .songInfo{
+        display:flex;
+        justify-content: space-between;
+        align-items: center;
+        padding:20px 15px;
+        color:#f2f2f2;
+        .infoLeft{
+            width:200px;
+            .songName , .songArtists{
+                font-size:20px;
+                margin-bottom:6px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .songArtists{
+                font-size:16px;
+            }
+        }
+        .infoRight{
+            padding-left:35px;
+            flex:1;
+            display:flex;
+            justify-content: space-between;
+            // .infoRight_L{
+            //     flex:1;
+            // }
+            // .infoRight_R{
+            //     flex:1;
+            // }
+        }
+    }
+    .progress{
+        margin:10px 15px;
     }
 }
 @keyframes name{ 
