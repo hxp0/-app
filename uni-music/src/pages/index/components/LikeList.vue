@@ -11,7 +11,10 @@ const props = defineProps<Props>()
 const format =(data:Data[]) =>{
     return data.map(v => v.name).join('/')
 }
-
+const play = () => {
+    const id = props.list.map(v=>v.resourceId).join('')
+    console.log(id)
+}
 </script>
 
 <template>
@@ -20,6 +23,7 @@ const format =(data:Data[]) =>{
         <swiper-item v-for="(item,index) in list" :key="index">
             <uni-list :border="true">
                 <uni-list-chat
+                @click="play"
                 v-for="song in item.resources"
                 :key="song.resourceId" 
                 :title="song.uiElement.mainTitle.title" 

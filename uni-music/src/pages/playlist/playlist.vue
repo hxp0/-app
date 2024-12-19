@@ -1,9 +1,9 @@
 <script setup lang="ts">
     import { nextTick, ref } from 'vue'
     import { getDetailApi } from '../../services';
-    import type { RequestPlaylist} from '../../services'
+    import type { RequestPlaylist,} from '../../services'
     import { onLoad } from '@dcloudio/uni-app';
-
+    import Comment from '../../components/comment/Comment.vue'
 
     const id = ref()
     const playList = ref<RequestPlaylist>()
@@ -25,6 +25,24 @@
         // console.log(id)  
         getDetail(option?.id)
     })
+
+
+    const playAll = () => {
+        const ids = playList.value?.trackIds.map(v=>v.id)
+        // console.log(ids)
+        uni.navigateTo({
+            url:`/pages/player/player?id=${ids}`
+        })
+    }
+    const play = () => {
+        const id = playList.value?.tracks.find(v=>v.id)
+        console.log(id!.id)
+        uni.navigateTo({
+            url:`/pages/player/player?id=${id!.id}`
+        })
+    }
+
+
 </script>
 
 <template>
@@ -64,10 +82,10 @@
         <view>
             <view class="player">
                 <uni-icons custom-prefix="iconfont" type="icon-zantingbofang1" size="30" color="red"></uni-icons>
-                <text size="14">播放全部</text>
+                <text size="14" @click="playAll">播放全部</text>
                 <view>({{ playList?.trackCount }})</view>
             </view>
-            <view class="item">
+            <view class="item" @click="play">
                 <uni-list-item
                 v-for="(item,index) in playList?.tracks"
                 :title="item.name"
@@ -81,7 +99,7 @@
                 </uni-list-item>
             </view>
         </view>
-        <comment />
+        <Comment :id="id" v-model:visible="showComment" :type="playList!"/>
     </view>
 </template>
 
