@@ -106,13 +106,14 @@ uni-page-body{
         align-items: center;
     }
     .play{
-        padding-top:75px;
+        margin-top:75px;
         height:240px;
         position:relative;
         .playImg{
+            height:240px;
             position:absolute;
-            bottom:0;
-            left:66px;
+            bottom:2px;
+            left:135rpx;
             // transform: translateX(-50%);
             animation: name 15s infinite linear;
             z-index:5;
@@ -121,16 +122,17 @@ uni-page-body{
             }
         }
         .bl_circle{
+            height:240px;
             position:absolute;
             bottom:0;
-            left:50%;
-            transform: translateX(-50%);
+            left:135rpx;
+            // transform: translateX(-50%);
             z-index:2;
         }
         .songPic{
             position:absolute;
             bottom:40px;
-            left:105px;
+            left:215rpx;
             // transform: translateX(-50%);
             animation: name 15s infinite linear; 
             image{
@@ -141,7 +143,7 @@ uni-page-body{
         }
         .stylus{
             position:absolute;
-            top:26px;
+            top:-47px;
             left:50%;
             z-index:10;
             image{
@@ -154,8 +156,8 @@ uni-page-body{
             height:36px;
             position:absolute;
             bottom:102px;
-            left:50%;
-            transform: translateX(-50%);
+            left:339rpx;
+            // transform: translateX(-50%);
             z-index:20;
             background:url('../../static/player_img/stop.png') no-repeat center/100% 100%;
         }
@@ -164,8 +166,8 @@ uni-page-body{
             height:36px;
             position:absolute;
             bottom:102px;
-            left:50%;
-            transform: translateX(-50%);
+            left:339rpx;
+            // transform: translateX(-50%);
             z-index:20;
             background:url('../../static/player_img/play.png') no-repeat center/100% 100%;
         }
