@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { getBannerApi,getHomeApi,ShowType } from '../../services'
-import type { RequestList,Block } from '../../services'
+import type { RequestList,Block} from '../../services'
 import Radar from '../../pages/index/components/Radar.vue'
 import LikeList from '../../pages/index/components/LikeList.vue'
 
@@ -29,7 +29,7 @@ getBannerApi()
 
 getHomeApi()
     .then((res) => {
-        // console.log(res)
+        console.log(res)
         homeRequest.value = res.data.blocks
     })
 
