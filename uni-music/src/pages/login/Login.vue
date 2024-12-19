@@ -19,14 +19,14 @@ const typeArr = [
         <Email v-else-if="loginType === 'email'" />
         <Qr v-else />
         <view class="change-type">
-        <view
-            v-for="item in typeArr"
-            :key="item.type"
-            class="link"
-            @click="loginType = item.type"
-        >
-            {{ item.text }}
-        </view>
+          <view
+              v-for="item in typeArr"
+              :key="item.type"
+              class="link"
+              @click="loginType = item.type"
+          >
+              {{ item.text }}
+          </view>
         </view>    
   </view>
 </template>

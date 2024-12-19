@@ -236,19 +236,106 @@ return request<captchaType>({url: 'https://zyxcl.xyz/music/api/captcha/sent',
  })
 }
 interface captchaLoginType {
-code:number
-message:string
-msg?:string
+  code:number
+  message:string
+  msg?:string
+  cookie?:string
+}
+// 校验手机号是否注册
+export const isLoginApi = (phone:number)=>{
+  return request({url:'https://zyxcl.xyz/music/api/cellphone/existence/check',
+    data:{
+      phone
+    }
+  })
 }
 // 手机登录校验接口
 export const CaptchaLoginApi = (phone:number,captcha:string) => {
-return request<captchaLoginType>({url: 'https://zyxcl.xyz/music/api/login/cellphone',
-  data: {
-    phone,
-    captcha
-  }
- })
+  return request<captchaLoginType>({url: 'https://zyxcl.xyz/music/api/login/cellphone',
+    data: {
+      phone,
+      captcha
+    }
+  })
 }
+// 二维码登录
+// 二维码 key 生成接口
+interface qrKeyType {
+  code:number
+  data:{
+    code:number
+    unikey:string
+  }
+}
+export const qrKeyApi = ()=>{
+  return request<qrKeyType>({url:'https://zyxcl.xyz/music/api/login/qr/key'})
+}
+
+// 二维码生成接口
+interface qrCreateType {
+  code:number
+  data:{
+    qrimg:string
+    qrurl:string
+  }
+}
+export const qrCreateApi = (key:string)=>{
+  return request<qrCreateType>({url:'https://zyxcl.xyz/music/api/login/qr/create',
+    data:{
+      key,
+      qrimg:true
+    }
+  })
+}
+// 二维码检测扫码状态接口
+interface qrCheckType {
+  code:number
+  cookie:string
+  message:string
+}
+export const qrCheckApi = (key:string)=>{
+  return request<qrCheckType>({url:'https://zyxcl.xyz/music/api//login/qr/check',
+    data:{
+      key
+      
+    }
+  })
+}
+
+
+interface loginStatusType {
+  data:{
+    code:number
+    account:{
+      id:number
+    }
+  }
+}
+// 登录状态校验接口
+export const loginStatusApi = ()=>{
+  return request<loginStatusType>({url:'https://zyxcl.xyz/music/api/login/status'})
+}
+// 获取用户详情接口
+export const userInfoApi = (id:number)=>{
+  return request({url:'https://zyxcl.xyz/music/api/user/detail',
+    data:{
+      uid:id
+    }
+  })
+}
+export const userAccountApi = ()=>{
+  return request({url:'https://zyxcl.xyz/music/api/user/account',})
+}
+// 获取用户信息 , 歌单，收藏，mv, dj 数量
+export const userSubcountApi = ()=>{
+  return request({url:'https://zyxcl.xyz/music/api/user/subcount',})
+}
+// 退出登录
+export const logoutApi = ()=>{
+  return request({url:'https://zyxcl.xyz/music/api/logout',})
+}
+
+
 
 
 
