@@ -1,7 +1,7 @@
-
-interface RequestParams {
-  url: string
-  data?: object
+// 请求轮播图
+export interface RequestParams {
+    url:string,
+    data?:object
 }
 
 export interface RequestList {
@@ -16,38 +16,7 @@ export interface RequestRes {
 
 
 
-
-export interface Block {
-  blockCode:string
-  showType:string
-  creatives:{
-      creativeType:string
-      resources:{
-          resourceId:string
-          uiElement:{
-              image:{
-                  imageUrl:string
-              }
-              mainTitle:{
-                  title:string
-              }
-          }
-      }
-  }
-  uiElement:{
-      subTitle:{
-          title:string
-      }
-  }
-}
-export interface RequestHome {
-  code:number
-  data:{
-      blocks:Block[]
-  }
-}
-
-
+// 请求首页数据
 export enum ShowType {
   HOMEPAGE_SLIDE_PLAYLIST = 'HOMEPAGE_SLIDE_PLAYLIST',
   HOMEPAGE_SLIDE_SONGLIST_ALIGN = 'HOMEPAGE_SLIDE_SONGLIST_ALIGN'
@@ -84,6 +53,34 @@ export interface RequestHome {
 
 
 
+export interface RequestSongList{
+  name:string
+  no:number
+  trackCount:number
+  ar:{name:string}[]
+}
+
+// 请求详情页
+export interface RequestPlaylist {
+  coverImgUrl:string
+  description:string
+  name:string
+  commentCount:number
+  shareCount:number
+  subscribedCount:number
+  trackCount:number
+  creator:{
+    avatarUrl:string
+    nickname:string
+  }
+  tracks:RequestSongList[]
+}
+
+export interface RequestDetail {
+  code:number
+  playlist:RequestPlaylist
+}
+
 
 export const getBannerApi = () => {
   return request<RequestRes>({url:'https://zyxcl.xyz/music/api/dj/banner'})
@@ -93,7 +90,7 @@ export const getHomeApi = () => {
 }
 
 export const getDetailApi = (id:number) => {
-return request({url:`https://zyxcl.xyz/music/api/playlist/detail`,data:{id}})
+  return request<RequestDetail>({url:'https://zyxcl.xyz/music/api/playlist/detail',data:{id}})
 }
 
 

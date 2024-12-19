@@ -26,7 +26,7 @@ const format =(data:Data[]) =>{
                 :avatar="song.uiElement.image.imageUrl" 
                 :note="format(song.resourceExtInfo.artists)" 
                 >
-                <uni-icons custom-prefix="iconfont" type="icon-zantingbofang1" size="20"></uni-icons>
+                    <uni-icons custom-prefix="iconfont" type="icon-zantingbofang1" size="20"></uni-icons>
                 </uni-list-chat>
             </uni-list>
         </swiper-item>
@@ -37,5 +37,8 @@ const format =(data:Data[]) =>{
 <style lang="scss" scoped>
 .swiper {
     height: 400rpx;
+}
+.uni-icons{
+    margin-top: 10px;
 }
 </style>

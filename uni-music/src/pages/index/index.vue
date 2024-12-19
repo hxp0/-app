@@ -14,17 +14,22 @@ const drawerRef = ref()
 const showDrawer = () => {
     drawerRef.value.open()
 }
+const goSearch = () => {
+    uni.navigateTo({
+        url:'/pages/search/Search'
+    })
+}
 
 
 getBannerApi()
     .then(res => {
-        console.log(res.data)
+        // console.log(res.data)
         homeList.value = res.data
     })
 
 getHomeApi()
     .then((res) => {
-        console.log(res)
+        // console.log(res)
         homeRequest.value = res.data.blocks
     })
 
@@ -38,7 +43,7 @@ getHomeApi()
     <view>
         <view class="nav">
             <i class="iconfont icon-liebiao" @click="showDrawer"></i>
-            <uni-search-bar class="search" readonly placeholder="搜索" bgColor="#EEEEEE" />
+            <uni-search-bar class="search" readonly placeholder="搜索" bgColor="#EEEEEE" @click="goSearch"/>
         </view>
         <view class="view">
             <view v-for="item in homeList" :key="item.targetId">
