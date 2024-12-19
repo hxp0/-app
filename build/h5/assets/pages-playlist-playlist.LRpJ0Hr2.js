@@ -1,0 +1,1 @@
+import{Y as s,a0 as a,m as o,o as e}from"./index-l0KxtmT8.js";const l={__name:"playlist",setup(l){const t=s();return a((s=>{t.value=s.id,console.log(t)})),(s,a)=>(e(),o("h1",null,"详情页"))}};export{l as default};
