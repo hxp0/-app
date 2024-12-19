@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import {CaptchaApi,CaptchaLoginApi} from '../../../services'
+import {CaptchaApi,CaptchaLoginApi,loginStatusApi,isLoginApi,logoutApi} from '../../../services'
+import { useUserStore } from '../../../stores/userStore'
+const userStore = useUserStore()
 const phone = ref<number>()
 const captcha = ref<string>('')
 let timer:any
@@ -54,9 +56,15 @@ const submit = async()=>{
     if(res.code === 200 ){
       uni.showToast({
         title:'登录成功',
-        icon:'error'
+        icon:'success'
       })
-      
+     setTimeout(() => {
+      uni.switchTab({
+        url:'/pages/index/index'
+      })
+     }, 2000);
+      uni.setStorageSync('curCookie',res.cookie)
+      userStore.getLoginStatus()
     }else{
       uni.showToast({
         title:res.message,
@@ -69,8 +77,17 @@ const submit = async()=>{
       icon:'error'
     })
   }
-  
 }
+// 用户信息
+// userStore.getLoginStatus()
+// logoutApi()
+// .then(res=>{
+//   console.log(res)
+// })
+// isLoginApi(13193012148)
+// .then(res=>{
+//   console.log(res)
+// })
 </script>
 
 <template>
