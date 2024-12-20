@@ -18,6 +18,7 @@ const play = (id:string) => {
     uni.switchTab({
         url:`/pages/player/player?id=${id}`
     })
+    uni.setStorageSync('id', id);
 }
 </script>
 
