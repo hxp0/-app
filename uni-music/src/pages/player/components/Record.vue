@@ -93,7 +93,7 @@ const emits = defineEmits(['changeShow'])
         left:339rpx;
         // transform: translateX(-50%);
         z-index:20;
-        background:url('../../static/player_img/stop.png') no-repeat center/100% 100%;
+        background:url('../../../static/player_img/stop.png') no-repeat center/100% 100%;
     }
     .songPlay{
         width:36px;
@@ -103,7 +103,7 @@ const emits = defineEmits(['changeShow'])
         left:339rpx;
         // transform: translateX(-50%);
         z-index:20;
-        background:url('../../static/player_img/play.png') no-repeat center/100% 100%;
+        background:url('../../../static/player_img/play.png') no-repeat center/100% 100%;
     }
     .paused{
         animation-play-state: paused;

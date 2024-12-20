@@ -228,7 +228,7 @@ export interface SongUrlList {
   code: number
   data:SongUrlItem[]
 }
-export const playerUrlApi = (id:string | string[]) => {
+export const playerUrlApi = (id:number | number[]) => {
   return request<SongUrlList>({url: 'https://zyxcl.xyz/music/api/song/url' , 
     data:{
       id
@@ -251,7 +251,7 @@ export interface SongDetailList {
   code: number
   songs:SongDetailItem[]
 }
-export const playerDetailApi = (ids:string | string[]) => {
+export const playerDetailApi = (ids:number | number[]) => {
   return request<SongDetailList>({url: 'https://zyxcl.xyz/music/api/song/detail' , 
     data:{
       ids

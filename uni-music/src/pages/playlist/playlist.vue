@@ -13,7 +13,7 @@
     const getDetail = async (id:number) => {
         try {
             const res = await getDetailApi(id)
-            console.log(res)
+            // console.log(res)
             playList.value = res.playlist
         }catch(e) {
             console.log(e)
@@ -30,16 +30,19 @@
     const playAll = () => {
         const ids = playList.value?.trackIds.map(v=>v.id)
         // console.log(ids)
-        uni.navigateTo({
+        uni.switchTab({
             url:`/pages/player/player?id=${ids}`
         })
+        uni.setStorageSync('ids', ids);
     }
     const play = () => {
         const id = playList.value?.tracks.find(v=>v.id)
-        console.log(id!.id)
-        uni.navigateTo({
+        // console.log(id!.id)
+        uni.switchTab({
             url:`/pages/player/player?id=${id!.id}`
         })
+        console.log(id!.id)
+        uni.setStorageSync('id', id!.id);
     }
 
 

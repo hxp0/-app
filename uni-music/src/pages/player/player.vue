@@ -41,11 +41,12 @@
                 <view class="iconfont icon-bofangliebiao-copy"></view>
             </view>
         </view>
+        <view class="mask" v-show="isMask">加载中...</view>
     </view>
 </template>
 
 <script setup lang="ts">
-import { ref , watchEffect , onMounted , nextTick , onBeforeMount, onBeforeUnmount } from 'vue'
+import { ref , watchEffect , watch , nextTick , onBeforeMount, onBeforeUnmount } from 'vue'
 import { playerUrlApi , playerDetailApi } from '../../services/index'
 import '../../static/font_4787574_zcaovxyixff/iconfont.css'
 import Record from './components/Record.vue'
@@ -55,10 +56,9 @@ import { onLoad } from "@dcloudio/uni-app";
 const bgUrl = ref<string>()
 const songUrl = ref<string>()
 const isShow = ref(true)
-// const isplay = ref( JSON.parse(sessionStorage.getItem('isplay')!) || false) // 管理停止按钮和播放按钮切换的
-const isplay = ref( false)
-// const isPaused = ref( JSON.parse(sessionStorage.getItem('isPaused')!) || false) // 管理动画是否旋转
-const isPaused = ref( false)
+const isplay = ref( false) // 管理停止按钮和播放按钮切换的
+const isPaused = ref( false) // 管理动画是否旋转
+const isMask = ref(false)
 const songName = ref<string>() // 歌曲名
 const artists = ref<string>() // 演唱者
 let audio:any = null
@@ -67,14 +67,9 @@ const prog = ref()
 const leftW = ref('0')
 const curTime = ref('00:00')
 const totalTime = ref()
-const id = ref<string | string[]>()
+const id = ref<number | number[]>()
+id.value = uni.getStorageSync('id');
 
-onLoad((option)=>{
-    id.value = option?.id;
-    console.log(option)
-    getSongDetail( id.value || '2146688401' )
-    getSongUrl( id.value || '2146688401' )
-})
 // 格式化时间
 const format = ( time: number )=>{
     let h = 0;
@@ -90,20 +85,24 @@ const zero = (n: number)=>{
     return n < 10 ?  '0' + n : n;
 }
 // 调用歌曲详情接口
-const getSongDetail = async( id:string | string[] ) => {
+const getSongDetail = async( id:number | number[] ) => {
     try{
+        isMask.value = true;
         let res = await playerDetailApi(id)
         console.log('Detail',res.songs)
-        bgUrl.value = res.songs[0].al.picUrl;
-        songName.value = res.songs[0].al.name + '(' + res.songs[0].alia.map(v => v) + ')'
-        artists.value = res.songs[0].ar.map(v => v.name).join("/")
+        bgUrl.value = res.songs[0]?.al.picUrl;
+        songName.value = res.songs[0]?.al.name + '(' + res.songs[0]?.alia.map(v => v) + ')'
+        artists.value = res.songs[0]?.ar.map(v => v.name).join("/")
     }catch(e){
         console.log(e)
+    }finally{
+        isMask.value = false;
     }
 }
 // 调用播放地址接口
-const getSongUrl = async( id:string | string[] ) => {
+const getSongUrl = async( id:number | number[] ) => {
     try{
+        isMask.value = true;
         let res = await playerUrlApi(id)
         console.log('url',res.data)
         songUrl.value = res.data[0].url  
@@ -112,8 +111,20 @@ const getSongUrl = async( id:string | string[] ) => {
         // console.log(songUrl.value)
     }catch(e){
         console.log(e)
+    }finally{
+        isMask.value = false;
     }
 }
+
+watchEffect(()=>{
+    // 处理参数
+    console.log(id.value);
+    getSongDetail( id.value! ) // || 2146688401 金风玉露
+    getSongUrl( id.value! ) // || 2146688401
+    // 清除存入的id数据
+    // uni.removeStorageSync('id');
+})
+
 // 调用audio的方法，改变按钮和动画的状态
 const changeState = () => {
     isplay.value = !isplay.value;
@@ -130,34 +141,27 @@ const changeState = () => {
     }
     audioFn(audio)
 }
+
 // audio的方法
 const audioFn = ( audio:any ) => {
     audio.onEnded(()=>{
-        isplay.value = !isplay.value;
-        isPaused.value = !isPaused.value;
+        isplay.value = false;
+        isPaused.value = false;
         curTime.value = format(0);
         leftW.value = '0';
     })
     audio.onTimeUpdate(()=>{
-        // if( audio.currentTime === audio.duration ) {
-        //     leftW.value = '0';
-        // }
         const ratio = (( audio.currentTime / audio.duration ) * 100 ).toFixed(2) + '%';
         leftW.value = ratio;
         curTime.value = format( audio.currentTime );
         totalTime.value = format( audio.duration );
-        // console.log(ratio)
     })
 }
+
 // 切换唱片组件和歌词组件
 const changeShow = () => {
     isShow.value = !isShow.value;
 }
-// 监听isplay和isPaused的值,存入会话存储
-// watchEffect(()=>{
-//     sessionStorage.setItem('isplay' , JSON.stringify(isplay.value))
-//     sessionStorage.setItem('isPaused' , JSON.stringify(isPaused.value))
-// })
 
 </script>
 
@@ -235,6 +239,20 @@ uni-page-body{
                 font-size:50px;
             }
         }
+    }
+    .mask{
+        position:absolute;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        z-index: 50;
+        background:rgb(0,0,0,0.5);
+        color:#fff;
+        font-size:24px;
+        display:flex;
+        justify-content: center;
+        align-items: center;
     }
 }
 @keyframes name{ 
