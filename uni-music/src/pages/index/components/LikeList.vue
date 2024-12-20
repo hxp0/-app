@@ -1,19 +1,24 @@
 <script setup lang="ts">
+import type { Creative } from '../../../services';
 interface Props {
-    list:any[]
+    list:Creative[]
     title:string
+    ids:string[]
 }
 interface Data {
     name:string
 }
 
 const props = defineProps<Props>()
+// const resourceList = props.list.
 const format =(data:Data[]) =>{
     return data.map(v => v.name).join('/')
 }
-const play = () => {
-    const id = props.list.map(v=>v.resourceId).join('')
+const play = (id:string) => {
     console.log(id)
+    uni.switchTab({
+        url:`/pages/player/player?id=${id}`
+    })
 }
 </script>
 
@@ -23,12 +28,13 @@ const play = () => {
         <swiper-item v-for="(item,index) in list" :key="index">
             <uni-list :border="true">
                 <uni-list-chat
-                @click="play"
                 v-for="song in item.resources"
                 :key="song.resourceId" 
                 :title="song.uiElement.mainTitle.title" 
                 :avatar="song.uiElement.image.imageUrl" 
-                :note="format(song.resourceExtInfo.artists)" 
+                :note="format(song.resourceExtInfo.artists)"
+                clickable
+                @click="play(song.resourceId)" 
                 >
                     <uni-icons custom-prefix="iconfont" type="icon-zantingbofang1" size="20"></uni-icons>
                 </uni-list-chat>
