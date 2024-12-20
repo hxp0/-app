@@ -1,31 +1,33 @@
 <template>
-     <view class="play" @click="emits('changeShow')">
-        <view :class="['playImg' , { paused: !isPaused }]">
-            <image mode='heightFix' src="../../../static/player_img/white_circle.png"></image>
+    <view class="wh">
+            <view class="play" @click="emits('changeShow')">
+            <view :class="['playImg' , { paused: !isPaused }]">
+                <image mode='heightFix' src="../../../static/player_img/white_circle.png"></image>
+            </view>
+            <view class="bl_circle">
+                <image mode="heightFix" src="../../../static/player_img/black_circle.png"></image>
+            </view>
+            <view :class="['songPic' , { paused: !isPaused }]">
+                <image :src="bgUrl"></image>
+            </view>
+            <view class="stylus">
+                <image src="../../../static/player_img/stylus.png"></image>
+            </view>
+            <view :class="{songPlay: isplay , songPause: !isplay}"></view>
         </view>
-        <view class="bl_circle">
-            <image mode="heightFix" src="../../../static/player_img/black_circle.png"></image>
-        </view>
-        <view :class="['songPic' , { paused: !isPaused }]">
-            <image :src="bgUrl"></image>
-        </view>
-        <view class="stylus">
-            <image src="../../../static/player_img/stylus.png"></image>
-        </view>
-        <view :class="{songPlay: isplay , songPause: !isplay}"></view>
-    </view>
-    <view class="songInfo">
-        <view class="infoLeft">
-            <view class="songName">{{ songName }}</view>
-            <view class="songArtists">{{ artists }}</view>
-        </view>
-        <view class="infoRight">
-            <uni-badge size="small" :text="100" absolute="rightTop" type="default">
-            	<view class="infoRight_L  iconfont icon-hear"></view>
-            </uni-badge>
-            <uni-badge size="small" :text="100" absolute="rightTop" type="default">
-            	<view class="infoRight_R iconfont icon-xiaoxi"></view>
-            </uni-badge>
+        <view class="songInfo">
+            <view class="infoLeft">
+                <view class="songName">{{ songName }}</view>
+                <view class="songArtists">{{ artists }}</view>
+            </view>
+            <view class="infoRight">
+                <uni-badge size="small" :text="100" absolute="rightTop" type="default">
+                	<view class="infoRight_L  iconfont icon-hear"></view>
+                </uni-badge>
+                <uni-badge size="small" :text="100" absolute="rightTop" type="default">
+                	<view class="infoRight_R iconfont icon-xiaoxi"></view>
+                </uni-badge>
+            </view>
         </view>
     </view>
 </template>
@@ -39,8 +41,11 @@ const emits = defineEmits(['changeShow'])
 </script>
 
 <style lang="scss" scoped>
+.wh{
+    height:860rpx;
+    padding-top:75px;
+}
 .play{
-    margin-top:75px;
     height:240px;
     position:relative;
     .playImg{
@@ -122,7 +127,7 @@ const emits = defineEmits(['changeShow'])
     display:flex;
     justify-content: space-between;
     align-items: center;
-    padding:20px 25px;
+    padding:50px 25px 0;
     color:#f2f2f2;
     .infoLeft{
         width:200px;

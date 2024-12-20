@@ -51,7 +51,7 @@ import { playerUrlApi , playerDetailApi } from '../../services/index'
 import '../../static/font_4787574_zcaovxyixff/iconfont.css'
 import Record from './components/Record.vue'
 import Lyric from './components/Lyric.vue'
-import { onShow } from "@dcloudio/uni-app";
+import { onShow , onHide } from "@dcloudio/uni-app";
 
 const bgUrl = ref<string>()
 const songUrl = ref<string>()
@@ -64,13 +64,24 @@ const artists = ref<string>() // 演唱者
 let audio:any = null
 const roundDot = ref()
 const prog = ref()
-const leftW = ref('0')
+const leftW = ref()
 const curTime = ref('00:00')
 const totalTime = ref()
 const id = ref<number | number[]>()
+const oldId = ref<number | number[]>()
 
 onShow(()=>{
     id.value = uni.getStorageSync('id');
+    if( id.value !== oldId.value ){
+        isMask.value = true;
+        isplay.value = false;
+        isPaused.value = false;
+        curTime.value = format(0);
+        leftW.value = '0';
+        audio?.stop();
+        audio = null;
+        isMask.value = false;
+    } 
 })
 
 // 格式化时间
@@ -92,9 +103,9 @@ const getSongDetail = async( id:number | number[] ) => {
     try{
         isMask.value = true;
         let res = await playerDetailApi(id)
-        console.log('Detail',res.songs)
+        // console.log('Detail',res.songs)
         bgUrl.value = res.songs[0]?.al.picUrl;
-        songName.value = res.songs[0]?.al.name + '(' + res.songs[0]?.alia.map(v => v) + ')'
+        songName.value = res.songs[0]?.name +( res.songs[0]?.alia.length === 0 ? '' : '(' + res.songs[0]?.alia.map(v => v) + ')');
         artists.value = res.songs[0]?.ar.map(v => v.name).join("/")
     }catch(e){
         console.log(e)
@@ -107,7 +118,8 @@ const getSongUrl = async( id:number | number[] ) => {
     try{
         isMask.value = true;
         let res = await playerUrlApi(id)
-        console.log('url',res.data)
+        oldId.value = id;
+        // console.log('url',res.data)
         songUrl.value = res.data[0].url  
         curTime.value = format(0)
         totalTime.value = format(res.data[0].time / 1000)
@@ -121,9 +133,9 @@ const getSongUrl = async( id:number | number[] ) => {
 
 watchEffect(()=>{
     // 处理参数
-    console.log(id.value);
+    // console.log(id.value);
     getSongDetail( id.value! || 2146688401 ) //  金风玉露
-    getSongUrl( id.value! || 2146688401 ) // 
+    getSongUrl( id.value! || 2146688401 ) //
     // 清除存入的id数据
     // uni.removeStorageSync('id');
 })
@@ -133,7 +145,8 @@ const changeState = () => {
     isplay.value = !isplay.value;
     isPaused.value = !isPaused.value;
     // console.log(isPaused.value)
-    if( !audio || audio.src !== songUrl.value ) {
+    // destroy
+    if( !audio ) {
         audio = uni.createInnerAudioContext();
         audio.src = songUrl.value;
     }
@@ -175,6 +188,7 @@ uni-page-body{
 .player{
     width:100%;
     height:100%;
+    overflow-y: auto;
     position:relative;
     .position{
         position:absolute;
@@ -183,6 +197,8 @@ uni-page-body{
         backdrop-filter: blur(25px);
         width:100%;
         height:100%;
+        overflow-y: auto;
+        background:rgb(0,0,0,0.3);
     }
     .header{
         height:50px;
@@ -211,11 +227,10 @@ uni-page-body{
             height:8px;
             position: absolute;
             top:-3px;
-            // left:0;
+            left:0;
             border-radius: 50%;
             background:#ffffff;
             z-index:2;
-            // transition:0.9s linear;
         }
         .proText{
             display:flex;
@@ -224,7 +239,7 @@ uni-page-body{
         }
     }
     .songPlay{
-        padding:50px 25px 0;
+        padding:150rpx 25rpx 0;
         display:flex;
         justify-content: space-between;
         align-items: center;
@@ -250,7 +265,7 @@ uni-page-body{
         width:100%;
         height:100%;
         z-index: 50;
-        background:rgb(0,0,0,0.5);
+        background:rgb(0,0,0,0.8);
         color:#fff;
         font-size:24px;
         display:flex;

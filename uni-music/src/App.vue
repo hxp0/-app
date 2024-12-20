@@ -12,6 +12,9 @@ onHide(() => {
 });
 </script>
 <style lang="scss">
+:root {
+  --bgColor: #eee;
+}
 *{
   margin: 0;
   padding: 0;

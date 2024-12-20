@@ -29,8 +29,22 @@
             &>view{
                 margin:0 6px;
                 font-size:20px;
+                position: relative;
+            }
+            &>view::after{
+                content: '';
+                position: absolute;
+                bottom:-12px;
+                left:50%;
+                transform: translateX(-50%);
+                width:18px;
+                height:4px;
+                text-align: center;
+                background-color: var(--bgColor);
+                border-radius: 2px;
             }
         }
     }
+    // #FD2948
 }
 </style>
