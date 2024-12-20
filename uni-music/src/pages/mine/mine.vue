@@ -13,7 +13,6 @@ const userStore = useUserStore()
 const profile = ref()
 loginStatusApi()
 .then(res=>{
-    console.log('登录状态',res)
     profile.value = res.data.profile
 })
 </script>

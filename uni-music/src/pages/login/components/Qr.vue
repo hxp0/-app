@@ -26,11 +26,11 @@ const isResCode = async()=>{
             title:'登录成功',
             icon:'success'
         })
-        // uni.switchTab({
-        //     url:'/pages/index/index'
-        // })
+        uni.switchTab({
+            url:'/pages/index/index'
+        })
         uni.setStorageSync('curCookie',res.cookie)
-        // userStore.getLoginStatus()
+        userStore.getLoginStatus()
     }else{
         console.log(res)
     }
