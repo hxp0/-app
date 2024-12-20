@@ -259,6 +259,7 @@ export interface SongDetailItem {
   ar:{
     name:string
   }[]
+  name: string
 }
 export interface SongDetailList {
   code: number

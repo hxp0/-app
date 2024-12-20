@@ -14,6 +14,6 @@ const emits = defineEmits(['changeShow'])
 <style lang="scss" scoped>
 .lyric{
     width:100%;
-    height:420px;
+    height:860rpx;
 }
 </style>
