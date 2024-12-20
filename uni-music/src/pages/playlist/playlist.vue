@@ -37,11 +37,11 @@
     }
     const play = (id:number) => {
         // const id = playList.value?.tracks.find(v=>v.id)
-        console.log(id)
+        // console.log(id)
         uni.switchTab({
             url:`/pages/player/player?id=${id}`
         })
-        console.log(id)
+        // console.log(id)
         uni.setStorageSync('id', id);
     }
 

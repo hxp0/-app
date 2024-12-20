@@ -14,7 +14,7 @@ const format =(data:Data[]) =>{
     return data.map(v => v.name).join('/')
 }
 const play = (id:string) => {
-    console.log(id)
+    // console.log(id)
     uni.switchTab({
         url:`/pages/player/player?id=${id}`
     })
