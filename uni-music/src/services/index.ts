@@ -118,6 +118,8 @@ export interface RequestComment {
   hotComments:Comments[]
 }
 
+// 设置接口
+
 
 export const getBannerApi = () => {
   return request<RequestRes>({url:'https://zyxcl.xyz/music/api/dj/banner'})
@@ -132,6 +134,10 @@ export const getDetailApi = (id:number) => {
 export const getCommentApi = (id:number) => {
   return request<RequestComment>({url:'https://zyxcl.xyz/music/api/comment/playlist',data:{id}})
 }
+export const getSettingApi = () => {
+  return request({url:'https://zyxcl.xyz/music/api/setting'})
+}
+
 
 
 

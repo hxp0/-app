@@ -4,7 +4,7 @@ import { getBannerApi,getHomeApi,ShowType } from '../../services'
 import type { RequestList,Block} from '../../services'
 import Radar from '../../pages/index/components/Radar.vue'
 import LikeList from '../../pages/index/components/LikeList.vue'
-
+import Drawer from './components/Drawer.vue'
 const homeList = ref<RequestList[]>([])
 const homeRequest = ref<Block[]>([])
 
@@ -60,7 +60,7 @@ getHomeApi()
 
 
         <uni-drawer ref="drawerRef" mode="left" :width="320">
-            抽屉内容
+            <Drawer />
         </uni-drawer>
     </view>
 </template>
@@ -119,5 +119,4 @@ getHomeApi()
         margin: 0 5px;
     }
 }
-
 </style>

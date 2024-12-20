@@ -46,12 +46,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref , watchEffect , watch , nextTick , onBeforeMount, onBeforeUnmount } from 'vue'
+import { ref , watchEffect } from 'vue'
 import { playerUrlApi , playerDetailApi } from '../../services/index'
 import '../../static/font_4787574_zcaovxyixff/iconfont.css'
 import Record from './components/Record.vue'
 import Lyric from './components/Lyric.vue'
-import { onLoad } from "@dcloudio/uni-app";
+import { onShow } from "@dcloudio/uni-app";
 
 const bgUrl = ref<string>()
 const songUrl = ref<string>()
@@ -68,7 +68,10 @@ const leftW = ref('0')
 const curTime = ref('00:00')
 const totalTime = ref()
 const id = ref<number | number[]>()
-id.value = uni.getStorageSync('id');
+
+onShow(()=>{
+    id.value = uni.getStorageSync('id');
+})
 
 // 格式化时间
 const format = ( time: number )=>{
@@ -119,8 +122,8 @@ const getSongUrl = async( id:number | number[] ) => {
 watchEffect(()=>{
     // 处理参数
     console.log(id.value);
-    getSongDetail( id.value! ) // || 2146688401 金风玉露
-    getSongUrl( id.value! ) // || 2146688401
+    getSongDetail( id.value! || 2146688401 ) //  金风玉露
+    getSongUrl( id.value! || 2146688401 ) // 
     // 清除存入的id数据
     // uni.removeStorageSync('id');
 })
