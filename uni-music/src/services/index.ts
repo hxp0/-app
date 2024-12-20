@@ -395,12 +395,18 @@ export interface profileType{
   city:number
   createTime:number
   inBlacklist:boolean
+  followeds?:number
+  follows?:number
+  level?:number
+  listenSongs?:number
 }
 // 登录状态校验接口
 export const loginStatusApi = ()=>{
   return request<loginStatusType>({url:'https://zyxcl.xyz/music/api/login/status',})
 }
 interface userInfoType {
+  level:number
+  listenSongs:number
   profile:profileType
 }
 // 获取用户详情接口
@@ -419,9 +425,26 @@ export const userAccountApi = ()=>{
 export const userSubcountApi = ()=>{
   return request({url:'https://zyxcl.xyz/music/api/user/subcount'})
 }
+interface userPlaylistType {
+  code:number
+  more:boolean
+  playlist:playlistType[]
+}
+export interface playlistType {
+  coverImgUrl:string
+  createTime:number
+  id:number
+  name:string
+  playCount:number
+  trackCount:number
+  creator:{
+    avatarUrl:string
+    backgroundUrl:string
+  }
+}
 // 获取用户歌单
 export const userPlaylistApi = (id:number)=>{
-  return request({url:'https://zyxcl.xyz/music/api/user/playlist',
+  return request<userPlaylistType>({url:'https://zyxcl.xyz/music/api/user/playlist',
     data:{
       uid:id
     }
