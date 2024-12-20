@@ -21,9 +21,8 @@
 
     }
     onLoad ((option) => {
-	    id.value = option?.id
-        // console.log(id)  
-        getDetail(option?.id)
+	    id.value = Number(option!.id) 
+        getDetail(id.value)
     })
 
 

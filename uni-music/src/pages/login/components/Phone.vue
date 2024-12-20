@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import {CaptchaApi,CaptchaLoginApi,loginStatusApi,isLoginApi,logoutApi} from '../../../services'
+import {CaptchaApi,CaptchaLoginApi,loginStatusApi,isLoginApi,logoutApi,CaptchaVerifyApi} from '../../../services'
 import { useUserStore } from '../../../stores/userStore'
 const userStore = useUserStore()
 const phone = ref<number>()
@@ -51,26 +51,35 @@ const getCaptcha = async()=>{
 }
 const submit = async()=>{
   if(phone.value && captcha.value){
-    const res = await CaptchaLoginApi(phone.value,captcha.value)
-    console.log(res)
-    if(res.code === 200 ){
-      uni.showToast({
-        title:'登录成功',
-        icon:'success'
-      })
-     setTimeout(() => {
-      uni.switchTab({
-        url:'/pages/index/index'
-      })
-     }, 2000);
-      uni.setStorageSync('curCookie',res.cookie)
-      userStore.getLoginStatus()
+    const isRes = await CaptchaVerifyApi(phone.value,captcha.value)
+    if(isRes.code === 200 ){
+      const res = await CaptchaLoginApi(phone.value,captcha.value)
+      console.log(res)
+      if(res.code === 200 ){
+        uni.showToast({
+          title:'登录成功',
+          icon:'success'
+        })
+      setTimeout(() => {
+        uni.switchTab({
+          url:'/pages/index/index'
+        })
+      }, 2000);
+        uni.setStorageSync('curCookie',res.cookie)
+        userStore.getLoginStatus()
+      }else{
+        uni.showToast({
+          title:res.message,
+          icon:'error'
+        })
+      }
     }else{
       uni.showToast({
-        title:res.message,
+        title:isRes.message,
         icon:'error'
       })
     }
+    
   }else{
     uni.showToast({
       title:'请输入手机号或者验证码',

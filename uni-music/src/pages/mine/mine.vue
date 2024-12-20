@@ -1,6 +1,6 @@
 <template>
-<LoginMine v-if="resCode === 200" :rescode="resCode" @changeRescode="getchangeRescode"/>
-<UnLoginMine v-else :rescode="resCode" @changeRescode="getchangeRescode"/>
+<LoginMine v-if="profile"/>
+<UnLoginMine v-else />
 </template>
 
 <script setup lang="ts">
@@ -8,16 +8,13 @@ import { ref } from 'vue';
 import { useUserStore } from '../../stores/userStore'
 import LoginMine from './components/LoginMine.vue'
 import UnLoginMine from './components/UnLoginMine.vue'
-import { loginStatusApi } from '.././../services'
+import { loginStatusApi,logoutApi,userAccountApi,userSubcountApi,userPlaylistApi,userRecordApi } from '.././../services'
 const userStore = useUserStore()
-const resCode = ref<number>()
+const profile = ref()
 loginStatusApi()
 .then(res=>{
-    resCode.value = res.data.code
+    profile.value = res.data.profile
 })
-const getchangeRescode = (val:number)=>{
-    resCode.value = val
-}
 </script>
 
 <style lang="scss" scoped>

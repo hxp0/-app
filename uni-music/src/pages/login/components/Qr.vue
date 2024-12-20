@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref,onUnmounted } from 'vue'
 import { qrKeyApi,qrCreateApi,qrCheckApi } from '../../../services'
 import { useUserStore } from '../../../stores/userStore'
-import { onHide } from '@dcloudio/uni-app';
 const userStore = useUserStore()
 const qrKey = ref('')
 const qrImgurl = ref('')
@@ -21,7 +20,7 @@ const isResCode = async()=>{
         statusStr.value = '二维码已过期，请刷新'
         clearInterval(timer)
     }else if(res.code === 803){
-        console.log(res.code)
+        console.log(res)
         clearInterval(timer)
         uni.showToast({
             title:'登录成功',
@@ -31,7 +30,7 @@ const isResCode = async()=>{
             url:'/pages/index/index'
         })
         uni.setStorageSync('curCookie',res.cookie)
-        // userStore.getLoginStatus()
+        userStore.getLoginStatus()
     }else{
         console.log(res)
     }
@@ -52,7 +51,7 @@ const refash = ()=>{
     clearInterval(timer)
     getQr()
 }
-onHide(()=>{
+onUnmounted(()=>{
     clearInterval(timer)
 })
 </script>
