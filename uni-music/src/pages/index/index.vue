@@ -53,7 +53,7 @@ getHomeApi()
         </view>
         <template v-for="item in homeRequest" :key="item.blockCode">
             <Radar v-if="item.showType === ShowType.HOMEPAGE_SLIDE_PLAYLIST" :list="item.creatives" :title="item.uiElement"/>
-            <LikeList v-else-if="item.showType === ShowType.HOMEPAGE_SLIDE_SONGLIST_ALIGN" :list="item.creatives" :title="item.uiElement.subTitle.title" :ids="item.resourceIdList"/>
+            <LikeList v-else-if="item.showType === ShowType.HOMEPAGE_SLIDE_SONGLIST_ALIGN" :list="item.creatives" :title="item.uiElement.subTitle.title" />
         </template>
 
         

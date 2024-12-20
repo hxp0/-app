@@ -3,7 +3,6 @@ import type { Creative } from '../../../services';
 interface Props {
     list:Creative[]
     title:string
-    ids:string[]
 }
 interface Data {
     name:string
