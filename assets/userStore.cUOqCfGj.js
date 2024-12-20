@@ -1,1 +1,0 @@
-import{ac as o,K as s,B as t}from"./index-BDOIPGQE.js";import{l as a,m as e}from"./index.QxF1F2_y.js";const i=o("userStore",(()=>({userCookie:"",getLoginStatus:async()=>await a(),getLogout:async()=>{e(),s("curCookie"),t({title:"退出登录成功",icon:"none"})}})));export{i as u};
