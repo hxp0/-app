@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { getBannerApi,getHomeApi,ShowType } from '../../services'
-import type { RequestList,Block } from '../../services'
+import type { RequestList,Block} from '../../services'
 import Radar from '../../pages/index/components/Radar.vue'
 import LikeList from '../../pages/index/components/LikeList.vue'
 
@@ -29,7 +29,7 @@ getBannerApi()
 
 getHomeApi()
     .then((res) => {
-        // console.log(res)
+        console.log(res)
         homeRequest.value = res.data.blocks
     })
 
@@ -53,7 +53,7 @@ getHomeApi()
         </view>
         <template v-for="item in homeRequest" :key="item.blockCode">
             <Radar v-if="item.showType === ShowType.HOMEPAGE_SLIDE_PLAYLIST" :list="item.creatives" :title="item.uiElement"/>
-            <LikeList v-else-if="item.showType === ShowType.HOMEPAGE_SLIDE_SONGLIST_ALIGN" :list="item.creatives" :title="item.uiElement.subTitle.title"/>
+            <LikeList v-else-if="item.showType === ShowType.HOMEPAGE_SLIDE_SONGLIST_ALIGN" :list="item.creatives" :title="item.uiElement.subTitle.title" />
         </template>
 
         

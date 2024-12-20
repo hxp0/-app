@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import type { Creative } from '../../../services';
 interface Props {
-    list:any[]
+    list:Creative[]
     title:{
         subTitle:{
             title:string
@@ -8,7 +9,7 @@ interface Props {
     }
 }
 
-const goDetail = (id:number) => {
+const goDetail = (id:string) => {
     uni.navigateTo({
         url: `/pages/playlist/playlist?id=${id}`
     })

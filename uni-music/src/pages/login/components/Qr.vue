@@ -39,6 +39,7 @@ const getQr = async()=>{
     const res = await qrKeyApi()
     qrKey.value = res.data.unikey
     const resQr = await qrCreateApi(qrKey.value)
+    console.log(resQr)
     qrImgurl.value = resQr.data.qrimg
     timer = setInterval(()=>{
         isResCode()
@@ -59,7 +60,7 @@ onUnmounted(()=>{
 <view class="qr-wrap">
     <image  mode="widthFix" :src="qrImgurl"></image>
     <view class="qr-code" v-if="statusStr.length > 0" @click="refash">{{ statusStr }}</view>
-  </view>
+</view>
 
 </template>
 

@@ -21,23 +21,40 @@ export enum ShowType {
   HOMEPAGE_SLIDE_PLAYLIST = 'HOMEPAGE_SLIDE_PLAYLIST',
   HOMEPAGE_SLIDE_SONGLIST_ALIGN = 'HOMEPAGE_SLIDE_SONGLIST_ALIGN'
 }
+interface Name {
+  name:string
+}
+export interface Resource {
+  resourceId:string
+  resourceExtInfo:{
+    artists:Name[]
+    song:{
+      al:{
+        name:string
+        picUrl:string
+      }
+    }
+  }
+}
+export interface Creative {
+  creativeType:string
+  creativeId:string
+  resources:Resource[]
+  uiElement:{
+    image:{
+      imageUrl:string
+    }
+    mainTitle:{
+      title:string
+    }
+  }
+}
+
 export interface Block {
   blockCode:string
   showType:string
-  creatives:{
-      creativeType:string
-      resources:{
-          resourceId:string
-          uiElement:{
-              image:{
-                  imageUrl:string
-              }
-              mainTitle:{
-                  title:string
-              }
-          }
-      }
-  }
+  creatives:Creative
+  resourceIdList:string
   uiElement:{
       subTitle:{
           title:string
@@ -57,10 +74,14 @@ export interface RequestSongList{
   name:string
   no:number
   trackCount:number
+  id:number
   ar:{name:string}[]
 }
 
 // 请求详情页
+export interface Id {
+  id:number
+}
 export interface RequestPlaylist {
   coverImgUrl:string
   description:string
@@ -69,6 +90,7 @@ export interface RequestPlaylist {
   shareCount:number
   subscribedCount:number
   trackCount:number
+  trackIds:Id[]
   creator:{
     avatarUrl:string
     nickname:string
@@ -79,6 +101,21 @@ export interface RequestPlaylist {
 export interface RequestDetail {
   code:number
   playlist:RequestPlaylist
+}
+
+// 请求评论
+export interface Comments {
+  commentId:number
+  content:string
+  user:{
+    avatarUrl:string
+    nickname:string
+  }
+}
+export interface RequestComment {
+  code:number
+  comments:Comments[]
+  hotComments:Comments[]
 }
 
 
@@ -92,7 +129,9 @@ export const getHomeApi = () => {
 export const getDetailApi = (id:number) => {
   return request<RequestDetail>({url:'https://zyxcl.xyz/music/api/playlist/detail',data:{id}})
 }
-
+export const getCommentApi = (id:number) => {
+  return request<RequestComment>({url:'https://zyxcl.xyz/music/api/comment/playlist',data:{id}})
+}
 
 
 
@@ -190,12 +229,13 @@ export interface SearchDefaultRes {
 export interface SongUrlItem {
   id: number
   url: string
+  time: number
 }
 export interface SongUrlList {
   code: number
   data:SongUrlItem[]
 }
-export const playerUrlApi = (id:string) => {
+export const playerUrlApi = (id:number | number[]) => {
   return request<SongUrlList>({url: 'https://zyxcl.xyz/music/api/song/url' , 
     data:{
       id
@@ -218,7 +258,7 @@ export interface SongDetailList {
   code: number
   songs:SongDetailItem[]
 }
-export const playerDetailApi = (ids:string) => {
+export const playerDetailApi = (ids:number | number[]) => {
   return request<SongDetailList>({url: 'https://zyxcl.xyz/music/api/song/detail' , 
     data:{
       ids

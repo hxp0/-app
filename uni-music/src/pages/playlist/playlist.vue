@@ -1,9 +1,9 @@
 <script setup lang="ts">
     import { nextTick, ref } from 'vue'
     import { getDetailApi } from '../../services';
-    import type { RequestPlaylist} from '../../services'
+    import type { RequestPlaylist,} from '../../services'
     import { onLoad } from '@dcloudio/uni-app';
-
+    import Comment from '../../components/comment/Comment.vue'
 
     const id = ref()
     const playList = ref<RequestPlaylist>()
@@ -13,7 +13,7 @@
     const getDetail = async (id:number) => {
         try {
             const res = await getDetailApi(id)
-            console.log(res)
+            // console.log(res)
             playList.value = res.playlist
         }catch(e) {
             console.log(e)
@@ -25,6 +25,27 @@
         // console.log(id)  
         getDetail(option?.id)
     })
+
+
+    const playAll = () => {
+        const ids = playList.value?.trackIds.map(v=>v.id)
+        // console.log(ids)
+        uni.switchTab({
+            url:`/pages/player/player?id=${ids}`
+        })
+        uni.setStorageSync('ids', ids);
+    }
+    const play = (id:number) => {
+        // const id = playList.value?.tracks.find(v=>v.id)
+        console.log(id)
+        uni.switchTab({
+            url:`/pages/player/player?id=${id}`
+        })
+        console.log(id)
+        uni.setStorageSync('id', id);
+    }
+
+
 </script>
 
 <template>
@@ -64,7 +85,7 @@
         <view>
             <view class="player">
                 <uni-icons custom-prefix="iconfont" type="icon-zantingbofang1" size="30" color="red"></uni-icons>
-                <text size="14">播放全部</text>
+                <text size="14" @click="playAll">播放全部</text>
                 <view>({{ playList?.trackCount }})</view>
             </view>
             <view class="item">
@@ -74,6 +95,8 @@
                 :note="item.ar.map(v => v.name).join('/')" 
                 ellipsis="2"
                 showArrow
+                clickable
+                @click="play(item.id)"
                 >
                 <template v-slot:header>
                     <view class="no">{{ index + 1 }}</view>
@@ -81,7 +104,7 @@
                 </uni-list-item>
             </view>
         </view>
-        <comment />
+        <Comment :id="id" v-model:visible="showComment" :type="playList!"/>
     </view>
 </template>
 
