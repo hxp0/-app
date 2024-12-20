@@ -54,6 +54,7 @@ export interface Block {
   blockCode:string
   showType:string
   creatives:Creative
+  resourceIdList:string
   uiElement:{
       subTitle:{
           title:string

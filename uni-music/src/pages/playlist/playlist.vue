@@ -30,15 +30,15 @@
     const playAll = () => {
         const ids = playList.value?.trackIds.map(v=>v.id)
         // console.log(ids)
-        uni.navigateTo({
+        uni.switchTab({
             url:`/pages/player/player?id=${ids}`
         })
     }
-    const play = () => {
-        const id = playList.value?.tracks.find(v=>v.id)
-        console.log(id!.id)
-        uni.navigateTo({
-            url:`/pages/player/player?id=${id!.id}`
+    const play = (id:number) => {
+        // const id = playList.value?.tracks.find(v=>v.id)
+        console.log(id)
+        uni.switchTab({
+            url:`/pages/player/player?id=${id}`
         })
     }
 
@@ -85,13 +85,15 @@
                 <text size="14" @click="playAll">播放全部</text>
                 <view>({{ playList?.trackCount }})</view>
             </view>
-            <view class="item" @click="play">
+            <view class="item">
                 <uni-list-item
                 v-for="(item,index) in playList?.tracks"
                 :title="item.name"
                 :note="item.ar.map(v => v.name).join('/')" 
                 ellipsis="2"
                 showArrow
+                clickable
+                @click="play(item.id)"
                 >
                 <template v-slot:header>
                     <view class="no">{{ index + 1 }}</view>
