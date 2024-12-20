@@ -143,10 +143,16 @@ export const getCommentApi = (id:number) => {
 
 // 封装请求接口的函数，统一管理接口
 export const request = <T>({ url, data }: RequestParams) => {
+  const cookie = uni.getStorageSync('curCookie') || ''
+  const cookieData = cookie ? { cookie } : {}
   return new Promise<T>((resolve, reject) => {
     uni.request({
       url,
-      data,
+      data:{
+        ...data,
+        ...cookieData
+      },
+      withCredentials: true,
       success: (res) => {
         resolve(res.data as T)
       },
@@ -289,6 +295,21 @@ export const isLoginApi = (phone:number)=>{
     }
   })
 }
+// 校验手机号和验证码是否正确接口
+interface CaptchaVerifyType {
+  code:number
+  data:boolean
+  message?:string
+}
+export const CaptchaVerifyApi = (phone:number,captcha:string) => {
+  return request<CaptchaVerifyType>({url: 'https://zyxcl.xyz/music/api/captcha/verify',
+    data: {
+      phone,
+      captcha
+    }
+  })
+}
+
 // 手机登录校验接口
 export const CaptchaLoginApi = (phone:number,captcha:string) => {
   return request<captchaLoginType>({url: 'https://zyxcl.xyz/music/api/login/cellphone',
@@ -341,38 +362,82 @@ export const qrCheckApi = (key:string)=>{
     }
   })
 }
-
+// 邮箱登录
+interface emailType {
+  code:number
+  cookie:string
+  message:string
+}
+export const emailApi = (email:string,password:string)=>{
+  return request<emailType>({url:'https://zyxcl.xyz/music/api//login',
+    data:{
+      email,
+      password,
+      md5_password: 'md5'
+      
+    }
+  })
+}
 
 interface loginStatusType {
   data:{
     code:number
-    account:{
-      id:number
-    }
+    account:{}
+    profile:profileType | null
   }
+}
+export interface profileType{
+  nickname:string
+  userId:number
+  avatarUrl:string
+  backgroundUrl:string
+  birthday:number
+  city:number
+  createTime:number
+  inBlacklist:boolean
 }
 // 登录状态校验接口
 export const loginStatusApi = ()=>{
-  return request<loginStatusType>({url:'https://zyxcl.xyz/music/api/login/status'})
+  return request<loginStatusType>({url:'https://zyxcl.xyz/music/api/login/status',})
+}
+interface userInfoType {
+  profile:profileType
 }
 // 获取用户详情接口
 export const userInfoApi = (id:number)=>{
-  return request({url:'https://zyxcl.xyz/music/api/user/detail',
+  return request<userInfoType>({url:'https://zyxcl.xyz/music/api/user/detail',
     data:{
       uid:id
     }
   })
 }
+// 获取账号信息
 export const userAccountApi = ()=>{
-  return request({url:'https://zyxcl.xyz/music/api/user/account',})
+  return request({url:'https://zyxcl.xyz/music/api/user/account'})
 }
 // 获取用户信息 , 歌单，收藏，mv, dj 数量
 export const userSubcountApi = ()=>{
-  return request({url:'https://zyxcl.xyz/music/api/user/subcount',})
+  return request({url:'https://zyxcl.xyz/music/api/user/subcount'})
+}
+// 获取用户歌单
+export const userPlaylistApi = (id:number)=>{
+  return request({url:'https://zyxcl.xyz/music/api/user/playlist',
+    data:{
+      uid:id
+    }
+  })
+}
+// 获取用户播放记录
+export const userRecordApi = (id:number)=>{
+  return request({url:'https://zyxcl.xyz/music/api/user/record',
+    data:{
+      uid:id
+    }
+  })
 }
 // 退出登录
 export const logoutApi = ()=>{
-  return request({url:'https://zyxcl.xyz/music/api/logout',})
+  return request({url:'https://zyxcl.xyz/music/api/logout'})
 }
 
 
