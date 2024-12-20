@@ -457,13 +457,57 @@ export const userPlaylistApi = (id:number)=>{
   })
 }
 // 获取用户播放记录
+interface RecordListType {
+  code:number
+  allData:allDataType[]
+}
+export interface allDataType {
+  playCount:number
+  score:number
+  song:songListType
+}
+export interface songListType {
+  name:string
+  id:number
+  al:{
+    id:number
+    name:string
+    picUrl:string
+  }
+  ar:{
+    id:number
+    name:string
+  }[]
+  mv:number
+}
 export const userRecordApi = (id:number)=>{
-  return request({url:'https://zyxcl.xyz/music/api/user/record',
+  return request<RecordListType>({url:'https://zyxcl.xyz/music/api/user/record',
     data:{
       uid:id
     }
   })
 }
+// 最近听歌列表
+interface userRecordListType {
+  code:number
+  data:{
+    title:string
+    resources:[]
+  }
+  message:string
+}
+export const userRecordListApi = ()=>{
+  return request<userRecordListType>({url:'https://zyxcl.xyz/music/api/recent/listen/list' })
+}
+// mv详情
+export const mvDetailApi = (mvid:number)=>{
+  return request<userRecordListType>({url:'https://zyxcl.xyz/music/api/mv/detail',
+    data:{
+      mvid
+    }
+   })
+}
+
 // 退出登录
 export const logoutApi = ()=>{
   return request({url:'https://zyxcl.xyz/music/api/logout'})

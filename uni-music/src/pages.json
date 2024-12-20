@@ -46,6 +46,15 @@
 				"navigationBarTitleText": "登录"
 			}
 			
+		},
+		{
+			"path": "pages/recordlist/Recordlist",
+			"style": {
+				"navigationBarTitleText": "最近播放",
+				"navigationBarBackgroundColor":"#ffffff",
+				"navigationBarTextStyle":"black"
+			}
+			
 		}
 	],
 	"tabBar": {
