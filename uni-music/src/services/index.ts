@@ -158,7 +158,7 @@ export const request = <T>({ url, data }: RequestParams) => {
         ...data,
         ...cookieData
       },
-      // withCredentials: true,
+      withCredentials: true,
       success: (res) => {
         resolve(res.data as T)
       },
