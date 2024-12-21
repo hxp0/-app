@@ -1,5 +1,6 @@
 <script setup>
 import { getSettingApi } from '../../../services'
+import { useUserStore } from '@/stores/userStore';
 // const goDetail = () => {
 //     // const res = await getSettingApi() 
 //     // console.log(res)
@@ -8,12 +9,18 @@ import { getSettingApi } from '../../../services'
 //     // })
 // }
 // goDetail()
-// const onClick = (e) => {
-//     console.log('执行click事件', e.data)
-//     uni.showToast({
-//         title: '点击反馈'
-//     });
-// }
+
+const store = useUserStore()
+const onClick = (e) => {
+    console.log('执行click事件', e.data)
+    // store.goSettingApi()
+    uni.navigateTo({
+        url:'/pages/setting/Setting'
+    })
+}
+const goLoginout = () => {
+    store.getLogout()
+}
 
 </script>
 
@@ -34,7 +41,8 @@ import { getSettingApi } from '../../../services'
             <uni-list-item showArrow title="我的消息"></uni-list-item>
             <uni-list-item showArrow title="云贝中心" rightText="免费兑换黑胶VIP"></uni-list-item>
             <uni-list-item showArrow title="徽章中心" rightText="听歌领圣诞限定徽章"></uni-list-item>
-            <uni-list-item showArrow title="设置" link to="/components/Setting" clickable @click="onClick"></uni-list-item>
+            <uni-list-item showArrow title="设置"  clickable @click="onClick"></uni-list-item>
+            <uni-list-item showArrow title="退出登录"  clickable @click="goLoginout"></uni-list-item>
         </view>
     </view>
 </template>

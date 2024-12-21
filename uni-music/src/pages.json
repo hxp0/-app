@@ -46,6 +46,13 @@
 				"navigationBarTitleText": "登录"
 			}
 			
+		},
+		{
+			"path": "pages/setting/Setting",
+			"style": {
+				"navigationBarTitleText": "设置"
+			}
+			
 		}
 	],
 	"tabBar": {
