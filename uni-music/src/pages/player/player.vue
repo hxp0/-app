@@ -13,6 +13,7 @@
                 :isplay="isplay"
                 :songName="songName"
                 :artists="artists"
+                :id="id"
                 @changeShow="changeShow"
             />
             <Lyric 

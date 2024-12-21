@@ -1,6 +1,6 @@
 <template>
     <view class="wh">
-            <view class="play" @click="emits('changeShow')">
+        <view class="play" @click="emits('changeShow')">
             <view :class="['playImg' , { paused: !isPaused }]">
                 <image mode='heightFix' src="../../../static/player_img/white_circle.png"></image>
             </view>
@@ -25,19 +25,23 @@
                 	<view class="infoRight_L  iconfont icon-hear"></view>
                 </uni-badge>
                 <uni-badge size="small" :text="100" absolute="rightTop" type="default">
-                	<view class="infoRight_R iconfont icon-xiaoxi"></view>
+                	<view class="infoRight_R iconfont icon-xiaoxi" @click="visible = !visible"></view>
                 </uni-badge>
             </view>
         </view>
+        
+        <Comment  :id="id" v-model:visible="visible"></Comment>
     </view>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import Comment from '../../../components/comment/Comment.vue'
 import '../../../static/font_4787574_zcaovxyixff/iconfont.css'
 
-const props = defineProps(['bgUrl' , 'isPaused' , 'isplay' , 'songName' , 'artists'])
+const props = defineProps(['bgUrl' , 'isPaused' , 'isplay' , 'songName' , 'artists' , 'id'])
 const emits = defineEmits(['changeShow'])
+const visible = ref(false)
 </script>
 
 <style lang="scss" scoped>

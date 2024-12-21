@@ -470,7 +470,34 @@ export const logoutApi = ()=>{
   return request({url:'https://zyxcl.xyz/music/api/logout'})
 }
 
+export interface FindBannerItem {
+  pic: string
+  bannerId: string
+  typeTitle: string
+}
+export interface FindBannerType {
+  code: number
+  banners: FindBannerItem[]
+}
+export const findBannerApi = ()=>{
+  return request<FindBannerType>({url: 'https://zyxcl.xyz/music/api/banner' , data:{
+    type: 1
+  }})
+}
 
-
-
-
+export interface FindRecommendItem {
+  id: number
+  name: string
+  picUrl: string
+}
+export interface FindRecommendType {
+  code: number
+  category: number
+  hasTaste: string
+  result: FindRecommendItem[]
+}
+export const findRecommendApi = ()=>{
+  return request<FindRecommendType>({url: 'https://zyxcl.xyz/music/api/personalized' , data:{
+    type: 1
+  }})
+}

@@ -3,17 +3,31 @@
         <view class="nav">
             <view class="navLeft">left</view>
             <view class="navCenter">
-                <view>音乐</view>
-                <view>播客</view>
-                <view>听书</view>
+                <view
+                    v-for="(item , i) in navList"
+                    :key="item"
+                    :class="{active: activeIndex === i}"
+                    @click="activeIndex = i"
+                >{{item}}</view>
             </view>
             <view class="navRight">Right</view>
         </view>
+        <Music v-if="activeIndex === 0"/>
+        <Podcast v-else-if="activeIndex === 1"/>
+        <AudioBook v-else-if="activeIndex === 2"/>
     </view>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
+import Music from './components/Music.vue'
+import Podcast from './components/Podcast.vue'
+import AudioBook from './components/AudioBook.vue'
+import Comment from '../../components/comment/Comment.vue'
 
+const navList = [ '音乐' , '播客' , '听书' ]
+const activeIndex = ref(0)
+const id = ref(2146688401)
 </script>
 
 <style lang="scss" scoped>
@@ -30,6 +44,7 @@
                 margin:0 6px;
                 font-size:20px;
                 position: relative;
+                color:#92959C;
             }
             &>view::after{
                 content: '';
@@ -42,6 +57,12 @@
                 text-align: center;
                 background-color: var(--bgColor);
                 border-radius: 2px;
+            }
+            .active{
+                color:#2C304E;
+            }
+            .active::after{
+                background-color: var(--bgRed);
             }
         }
     }
