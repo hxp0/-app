@@ -30,6 +30,12 @@ export const useUserStore = defineStore('userStore',()=>{
             getPlayList(res.data.profile.userId)
         }
     }
+    // // 跳转设置
+    // const goSettingApi = () => {
+    //     uni.navigateTo({
+    //         url:'/pages/index/components/Setting'
+    //     })
+    // }
     // 退出登录
     const getLogout = async()=>{
         logoutApi()
@@ -45,7 +51,8 @@ export const useUserStore = defineStore('userStore',()=>{
         playList,
         getLoginStatus,
         getLogout,
-        getUserInfo
+        getUserInfo,
+        // goSettingApi
     }
 
 
