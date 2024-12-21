@@ -15,7 +15,8 @@ export const useUserStore = defineStore('userStore',()=>{
             }
             userInfo.value.level = res.level
             userInfo.value.listenSongs = res.listenSongs
-            
+            userInfo.value.nickname = res.profile.nickname
+            userInfo.value.avatarUrl = res.profile.avatarUrl
         })
     }
     const getPlayList = async(id:number)=>{

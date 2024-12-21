@@ -26,7 +26,7 @@ const goLoginout = () => {
 
 <template>
     <view class="box">
-        <uni-list-chat :avatar-circle="true" title="uni-app" avatar="" class="Info">
+        <uni-list-chat :avatar-circle="true" :title="store.userInfo?.nickname" :avatar="store.userInfo.avatarUrl" class="Info">
             <uni-icons type="scan" color="#999" size="18"></uni-icons>
         </uni-list-chat>
         <view class="item">
