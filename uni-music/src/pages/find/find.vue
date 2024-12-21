@@ -23,7 +23,6 @@ import { ref } from 'vue'
 import Music from './components/Music.vue'
 import Podcast from './components/Podcast.vue'
 import AudioBook from './components/AudioBook.vue'
-import Comment from '../../components/comment/Comment.vue'
 
 const navList = [ '音乐' , '播客' , '听书' ]
 const activeIndex = ref(0)
