@@ -24,6 +24,7 @@ const goLoginout = () => {
 
 
 const goMine = () => {
+    console.log('1111')
     uni.switchTab({
         url:'/pages/mine/mine'
     })
@@ -32,7 +33,7 @@ const goMine = () => {
 
 <template>
     <view class="box">
-        <uni-list-chat :avatar-circle="true" :title="store.userInfo?.nickname" :avatar="store.userInfo?.avatarUrl" class="Info" @click="goMine">
+        <uni-list-chat :avatar-circle="true" :title="store.userInfo?.nickname" :avatar="store.userInfo?.avatarUrl" class="Info" @click="goMine" clickable>
             <uni-icons type="scan" color="#999" size="18"></uni-icons>
         </uni-list-chat>
         <view class="item">

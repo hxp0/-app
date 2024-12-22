@@ -5,10 +5,12 @@ import type { RequestList,Block} from '../../services'
 import Radar from '../../pages/index/components/Radar.vue'
 import LikeList from '../../pages/index/components/LikeList.vue'
 import Drawer from './components/Drawer.vue'
+import { useUserStore } from '@/stores/userStore';
+
 const homeList = ref<RequestList[]>([])
 const homeRequest = ref<Block[]>([])
 
-
+const store = useUserStore()
 const drawerRef = ref()
 
 const showDrawer = () => {
@@ -19,6 +21,9 @@ const goSearch = () => {
         url:'/pages/search/Search'
     })
 }
+
+store.getLoginStatus()
+
 
 
 getBannerApi()
