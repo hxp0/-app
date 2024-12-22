@@ -22,11 +22,17 @@ const goLoginout = () => {
     store.getLogout()
 }
 
+
+const goMine = () => {
+    uni.switchTab({
+        url:'/pages/mine/mine'
+    })
+}
 </script>
 
 <template>
     <view class="box">
-        <uni-list-chat :avatar-circle="true" :title="store.userInfo?.nickname" :avatar="store.userInfo.avatarUrl" class="Info">
+        <uni-list-chat :avatar-circle="true" :title="store.userInfo?.nickname" :avatar="store.userInfo?.avatarUrl" class="Info" @click="goMine">
             <uni-icons type="scan" color="#999" size="18"></uni-icons>
         </uni-list-chat>
         <view class="item">

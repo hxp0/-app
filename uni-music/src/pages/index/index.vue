@@ -29,7 +29,7 @@ getBannerApi()
 
 getHomeApi()
     .then((res) => {
-        console.log(res)
+        // console.log(res)
         homeRequest.value = res.data.blocks
     })
 
