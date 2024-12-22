@@ -1,11 +1,9 @@
 <template>
     <view class="player" ref="player" :style="'background:url(' + bgUrl + ') no-repeat center/1000% 1000%'"> 
         <view class="position">
-            <view class="header">
-                <view class="left iconfont icon--xiangxiajiantou"></view>
-                <view class="center">私人漫游 默认模式</view>
-                <view class="right iconfont icon-fasong01"></view>
-            </view>
+            <Header :title=" isShow ? '私人漫游 默认模式' : songName + '&' + artists ">
+                <!-- <view class="center">私人漫游 默认模式</view> -->
+            </Header>
             <Record 
                 v-if="isShow"
                 :bgUrl="bgUrl"
@@ -13,10 +11,12 @@
                 :isplay="isplay"
                 :songName="songName"
                 :artists="artists"
+                :id="id"
                 @changeShow="changeShow"
             />
             <Lyric 
                 v-else
+                :id="id || 2146688401"
                 @changeShow="changeShow"
             />
             <view class="prog" ref="prog">
@@ -51,6 +51,7 @@ import { playerUrlApi , playerDetailApi } from '../../services/index'
 import '../../static/font_4787574_zcaovxyixff/iconfont.css'
 import Record from './components/Record.vue'
 import Lyric from './components/Lyric.vue'
+import Header from './components/Header.vue'
 import { onShow , onHide } from "@dcloudio/uni-app";
 
 const bgUrl = ref<string>()
@@ -199,15 +200,6 @@ uni-page-body{
         height:100%;
         overflow-y: auto;
         background:rgb(0,0,0,0.3);
-    }
-    .header{
-        height:50px;
-        // background:darkred;
-        padding:0 15px;
-        display:flex;
-        color:#eee;
-        justify-content: space-between;
-        align-items: center;
     }
     .prog{
         width:670rpx;

@@ -14,6 +14,7 @@ onHide(() => {
 <style lang="scss">
 :root {
   --bgColor: #eee;
+  --bgRed: #FD2948;
 }
 *{
   margin: 0;
