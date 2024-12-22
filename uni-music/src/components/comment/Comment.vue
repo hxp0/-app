@@ -7,8 +7,8 @@
     const hotCommentList = ref<Comments[]>([])
     const popup = ref()
     interface Props {
-        visible:boolean
-        type:RequestPlaylist
+        visible?:boolean
+        type?:RequestPlaylist
         id:number
     }
 
