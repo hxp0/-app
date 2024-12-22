@@ -27,7 +27,7 @@
           </view>
         </view>
         <view class="icons">
-            <view class="icon">
+            <view class="icon" @click="goRecordList">
                 <i class="iconfont icon-zuijinliulan"></i>
                 <text>最近</text>
             </view>
@@ -94,6 +94,11 @@ const logout = ()=>{
 const goList = (id:number)=>{
     uni.navigateTo({
         url: `/pages/playlist/playlist?id=${id}`
+    })
+}
+const goRecordList = ()=>{
+    uni.navigateTo({
+        url:'/pages/recordlist/Recordlist'
     })
 }
 </script>

@@ -9,7 +9,6 @@ export const useUserStore = defineStore('userStore',()=>{
     const getUserInfo = async(id:number)=>{
         userInfoApi(id)
         .then(res=>{
-            console.log('用户详情',res)
             userInfo.value = {
                 ...res.profile
             }
@@ -21,7 +20,6 @@ export const useUserStore = defineStore('userStore',()=>{
     const getPlayList = async(id:number)=>{
         const res = await userPlaylistApi(id)
         playList.value = res.playlist
-        console.log(res.playlist)
     }
     const getLoginStatus = async()=>{
         const res =  await loginStatusApi()

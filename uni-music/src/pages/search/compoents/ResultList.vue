@@ -10,17 +10,16 @@ const activeCur = ref(0)
 const changeActive = (index:number)=>{
     activeCur.value = index
 }
-const goPlayer = (ids:number)=>{
+const goPlayer = (id:number)=>{
     uni.switchTab({
-        url:`/pages/player/player?id=${ids}`
+        url:`/pages/player/player?id=${id}`
     })
-    uni.setStorageSync('ids', ids)
+    uni.setStorageSync('id', id)
 }
 </script>
 
 <template>
     <view class="tabs">
-        <view></view>
         <view v-for="(item,index) in tabsList" :key="item" @click="changeActive(index)" :class="['item',{active:activeCur === index}]">
             {{ item }}
         </view>
