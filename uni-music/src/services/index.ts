@@ -485,19 +485,36 @@ export const findBannerApi = ()=>{
   }})
 }
 
+
 export interface FindRecommendItem {
   id: number
   name: string
   picUrl: string
 }
+
 export interface FindRecommendType {
   code: number
   category: number
   hasTaste: string
   result: FindRecommendItem[]
 }
+
 export const findRecommendApi = ()=>{
   return request<FindRecommendType>({url: 'https://zyxcl.xyz/music/api/personalized' , data:{
     type: 1
+  }})
+}
+
+export interface playerLyricItem {
+  lyric: string
+}
+export interface playerLyricType {
+  code: number
+  lrc: playerLyricItem
+}
+
+export const playerLyricApi = ( id: number )=>{
+  return request<playerLyricType>({url: 'https://zyxcl.xyz/music/api/lyric' , data:{
+    id
   }})
 }
