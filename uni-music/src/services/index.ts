@@ -1,7 +1,32 @@
+// 封装请求接口的函数，统一管理接口
+export const request = <T>({ url, data,method='GET' }: RequestParams) => {
+  const cookie = uni.getStorageSync('curCookie') || ''
+  const cookieData = cookie ? { cookie } : {}
+  return new Promise<T>((resolve, reject) => {
+    uni.request({
+      url,
+      data:{
+        ...data,
+        ...cookieData
+      },
+      method,
+      withCredentials: true,
+      success: (res) => {
+        resolve(res.data as T)
+      },
+      fail: reject,
+    })
+  })
+}
+
+
+
+
 // 请求轮播图
 export interface RequestParams {
     url:string,
-    data?:object
+    data?:object,
+    method?:"GET" | "OPTIONS" | "HEAD" | "POST" | "PUT" | "DELETE" | "TRACE" | "CONNECT" | undefined
 }
 
 export interface RequestList {
@@ -136,35 +161,6 @@ export const getCommentApi = (id:number) => {
 }
 export const getSettingApi = () => {
   return request({url:'https://zyxcl.xyz/music/api/setting'})
-}
-
-
-
-
-
-
-
-
-
-
-// 封装请求接口的函数，统一管理接口
-export const request = <T>({ url, data }: RequestParams) => {
-  const cookie = uni.getStorageSync('curCookie') || ''
-  const cookieData = cookie ? { cookie } : {}
-  return new Promise<T>((resolve, reject) => {
-    uni.request({
-      url,
-      data:{
-        ...data,
-        ...cookieData
-      },
-      withCredentials: true,
-      success: (res) => {
-        resolve(res.data as T)
-      },
-      fail: reject,
-    })
-  })
 }
 
 
@@ -500,10 +496,179 @@ export const userRecordListApi = ()=>{
   return request<userRecordListType>({url:'https://zyxcl.xyz/music/api/recent/listen/list' })
 }
 // mv详情
+interface mvDetailType {
+  code:number
+  data:mvDetailInfoType
+}
+export interface mvDetailInfoType {
+  artistName:string
+  commentCount:number
+  artistId:number
+  cover:string
+  desc:string
+  id:number
+  name:string
+  playCount:number
+  publishTime:string
+  shareCount:number
+  subCount:number
+  brs:{
+    br:number
+    point:number
+    size:number
+  }[]
+  artists:{
+    followed:boolean
+    id:number
+    img1v1Url:string
+    name:string
+  }[]
+}
+
 export const mvDetailApi = (mvid:number)=>{
-  return request<userRecordListType>({url:'https://zyxcl.xyz/music/api/mv/detail',
+  return request<mvDetailType>({url:'https://zyxcl.xyz/music/api/mv/detail',
     data:{
       mvid
+    }
+   })
+}
+// mv地址
+interface mvUrlType {
+  code:number
+  data:mvUrlDataType
+}
+export interface mvUrlDataType {
+    id:number
+    mvFee:number
+    r:number
+    size:number
+    url:string
+    expi:number
+}
+export const mvUrlApi = (id:number)=>{
+  return request<mvUrlType>({url:'https://zyxcl.xyz/music/api/mv/url',
+    data:{
+      id
+    }
+   })
+}
+// 获取mv转发评论点赞数
+export interface mvDetailInfo1Type {
+  code:number
+  commentCount:number
+  liked:boolean
+  likedCount:number
+  shareCount:number
+}
+export const mvDetailInfoApi = (mvid:number)=>{
+  return request<mvDetailInfo1Type>({url:'https://zyxcl.xyz/music/api/mv/detail/info',
+    data:{
+      mvid
+    }
+   })
+}
+// 收藏/取消mv
+interface mvSubType {
+  code:number
+  message:string
+}
+export const mvSubApi = (mvid:number,t:0|1)=>{
+  return request<mvSubType>({url:'https://zyxcl.xyz/music/api/mv/sub',
+    data:{
+      mvid,
+      t
+    }
+   })
+}
+// 收藏mv列表
+interface mvSubListType {
+  code:number
+  count:number
+  data:{
+    title:string
+    coverUrl:string
+  }[]
+}
+export const mvSubListApi = (mvid:number)=>{
+  return request<mvSubListType>({url:'https://zyxcl.xyz/music/api/mv/sublist',
+    data:{
+      mvid
+    }
+   })
+}
+// 给资源点赞，如mv，电台，视频，歌曲，歌单
+export const resourceLikeApi = (type:number,t:0|1,id:number)=>{
+  return request<{code:number}>({url:'https://zyxcl.xyz/music/api/resource/like',
+    data:{
+      type,
+      t,
+      id
+    }
+   })
+}
+// 相似歌单，歌曲，mv
+interface simiType {
+  code:number
+  mvs?:mvType[]
+}
+export interface mvType {
+  alg:string
+  artistId:number
+  artistName:string
+  duration:number
+  id:number
+  name:string
+  playCount:number
+  cover:string
+}
+export const simiApi = (type:string,id:number)=>{
+  return request<simiType>({url:`https://zyxcl.xyz/music/api/simi/${type}`,
+    data:{
+      id
+    }
+   })
+}
+// 歌手粉丝数量
+interface artistFollowType {
+  code:number
+  data:artistFollowDataType
+}
+export interface artistFollowDataType {
+  fansCnt:number
+  follow:boolean
+  followCnt:number
+  followDay:string
+  isFollow:boolean
+}
+export const artistFollowApi = (id:number)=>{
+  return request<artistFollowType>({url:`https://zyxcl.xyz/music/api/artist/follow/count`,
+    data:{
+      id
+    }
+   })
+}
+// 获取歌手视频数量
+interface artistDetailDynamicType {
+  code:number
+  followed:boolean
+  videoNum:{
+    cat:number
+    num:number
+  }[]
+}
+export const artistDetailDynamicApi = (id:number)=>{
+  return request<artistDetailDynamicType>({url:`https://zyxcl.xyz/music/api/artist/detail/dynamic`,
+    data:{
+      id
+    }
+   })
+}
+// 收藏歌手
+export const artistSubApi = (id:number,t:0|1)=>{
+  return request<{code:number}>({url:`https://zyxcl.xyz/music/api/artist/sub`,
+    data:{
+      id,
+      t
     }
    })
 }

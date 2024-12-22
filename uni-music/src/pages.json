@@ -55,6 +55,15 @@
 				"navigationBarTextStyle":"black"
 			}
 			
+		},
+		{
+			"path": "pages/mvplayer/MvPlayer",
+			"style": {
+				"navigationBarTitleText": "mv详情",
+				"navigationBarBackgroundColor":"#ffffff",
+				"navigationBarTextStyle":"black"
+			}
+			
 		}
 	],
 	"tabBar": {

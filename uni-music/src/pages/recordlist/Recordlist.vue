@@ -4,6 +4,7 @@ import { useUserStore } from '@/stores/userStore'
 import {userRecordApi,mvDetailApi} from '../../services'
 import type{allDataType} from '../../services'
 
+
 const userStore = useUserStore()
 const tabsList = ['歌曲','声音','有声书','直播','歌单','专辑','视频','博客']
 const list = ref<allDataType[]>([])
@@ -14,7 +15,6 @@ const changeActive = (index:number)=>{
 const getRecordList = async()=>{
     const res = await userRecordApi(userStore.userInfo!.userId)
     list.value = res.allData
-    console.log(list.value)
 }
 getRecordList()
 const goPlayer = (id:number)=>{
@@ -26,9 +26,10 @@ const goPlayer = (id:number)=>{
 const getDetail = (obj:allDataType)=>{
     console.log(obj)
 }
-const goMv = async(id:number)=>{
-    const res = await mvDetailApi(id)
-    console.log(res)
+const goMv = async(mvid:number,songid:number)=>{
+    uni.navigateTo({
+        url:`/pages/mvplayer/MvPlayer?mvid=${mvid}&songid=${songid}` 
+    })
 }
 </script>
 
@@ -46,7 +47,7 @@ const goMv = async(id:number)=>{
                     <view class="singer">{{ item.song.ar.map(v=>v.name).join('/') }}-{{ item.song.al.name }}</view>
                 </view>
                 <view class="icons">
-                    <uni-icons type="videocam" size="20" color="#ccc"  v-if="item.song.mv!==0" class="videocam" @click="goMv(item.song.mv)"></uni-icons>
+                    <uni-icons type="videocam" size="20" color="#ccc"  v-if="item.song.mv!==0" class="videocam" @click="goMv(item.song.mv,item.song.id)"></uni-icons>
                     <uni-icons type="more-filled" size="20" color="#ccc" @click="getDetail(item)"></uni-icons>
                 </view>
             </view>

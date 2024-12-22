@@ -1,6 +1,8 @@
 <template>
-<LoginMine v-if="profile"/>
-<UnLoginMine v-else />
+<view>
+    <LoginMine v-if="profile"/>
+    <UnLoginMine v-else />
+</view>
 </template>
 
 <script setup lang="ts">
@@ -11,10 +13,11 @@ import UnLoginMine from './components/UnLoginMine.vue'
 import { loginStatusApi } from '.././../services'
 const userStore = useUserStore()
 const profile = ref()
-loginStatusApi()
-.then(res=>{
+const getLoginStatus = async()=>{
+    const res = await loginStatusApi()
     profile.value = res.data.profile
-})
+}
+getLoginStatus()
 
 </script>
 
