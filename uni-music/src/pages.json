@@ -48,11 +48,6 @@
 			
 		},
 		{
-<<<<<<< HEAD
-			"path": "pages/setting/Setting",
-			"style": {
-				"navigationBarTitleText": "设置"
-=======
 			"path": "pages/recordlist/Recordlist",
 			"style": {
 				"navigationBarTitleText": "最近播放",
@@ -67,7 +62,6 @@
 				"navigationBarTitleText": "mv详情",
 				"navigationBarBackgroundColor":"#ffffff",
 				"navigationBarTextStyle":"black"
->>>>>>> hxp
 			}
 			
 		}

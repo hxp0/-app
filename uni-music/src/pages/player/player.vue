@@ -77,6 +77,7 @@ onShow(()=>{
         isMask.value = true;
         isplay.value = false;
         isPaused.value = false;
+        isShow.value = true;
         curTime.value = format(0);
         leftW.value = '0';
         audio?.stop();
